@@ -7,7 +7,7 @@ local missionfiles = {
   [2] = "CTLDCSAR.lua",
   [3] = "PlayerRecce.lua", 
   [4] = "Mantis.lua",
-  [5] = "RED_CAP.lua",
+  [5] = "Navy.lua",
 }
 
 local counter = 0
