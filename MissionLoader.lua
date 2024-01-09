@@ -9,6 +9,7 @@ local missionfiles = {
   [4] = "Mantis.lua",
   [5] = "GCI.lua",
   [6] = "Navy.lua",
+  [7] = "TaskManager.lua",
 }
 
 local counter = 0

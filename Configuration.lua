@@ -48,3 +48,30 @@ for Phase = 1,4 do
   end
 end
 
+-------------------------------------
+-- Persistenz
+-------------------------------------
+
+local redgroundfilename = "RedGround.csv"
+local redstaticsfilename = "RedStatics.csv"
+
+function SaveGround()
+  local redgroups = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
+  local names = redgroups:GetSetNames()
+  UTILS.SaveStationaryListOfGroups(names,SavePath,redgroundfilename,true)
+  local redstatics = SET_STATIC:New():FilterCoalitions("red"):FilterOnce()
+  local snames = redstatics:GetSetNames()
+  UTILS.SaveStationaryListOfStatics(snames,SavePath,redstaticsfilename)
+end
+
+function LoadGround()
+  UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,true,5,Density)
+  UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,true,5,Density)
+end
+
+local SaveTimer = TIMER:New(SaveGround)
+SaveTimer:Start(10,300)
+
+local LoadTimer = TIMER:New(LoadGround)
+LoadTimer:Start(2)
+
