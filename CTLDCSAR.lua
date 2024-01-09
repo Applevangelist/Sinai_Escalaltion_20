@@ -132,13 +132,13 @@ my_ctld:AddCratesCargo("Truck (2)",{"Truck"},CTLD_CARGO.Enum.VEHICLE,CratesSmall
 my_ctld:AddCratesCargo("Tanker (2)",{"Tanker"},CTLD_CARGO.Enum.VEHICLE,CratesSmall,PerCrateMass,Stock,"Rolling")
 
 -- Other/Fixed
-my_ctld:AddCratesCargo("Hawk System (8)",{"Blue HAWK"},CTLD_CARGO.Enum.FOB,CratesBig,PerCrateMass,Stock,"Installation")
+my_ctld:AddCratesCargo("Hawk System (8)",{"Blue SAM HAWK"},CTLD_CARGO.Enum.FOB,CratesBig,PerCrateMass,Stock,"Installation")
 my_ctld:AddCratesCargo("EWR 117 Radar (8)",{"Blue EWR 117"},CTLD_CARGO.Enum.FOB,CratesBig,PerCrateMass,Stock,"Installation")
 my_ctld:AddCratesCargo("EWR 117 Power System (1)",{"Blue EWR ECS"},CTLD_CARGO.Enum.FOB,CratesRep,PerCrateMass,Stock,"Installation")
 my_ctld:AddCratesCargo("FARP (8)",{"FARP"},CTLD_CARGO.Enum.FOB,CratesBig,PerCrateMass,Stock,"Installation")
 
 -- Repair
-my_ctld:AddCratesRepair("Hawk System (2)",{"Blue HAWK"},CTLD_CARGO.Enum.REPAIR,CratesSmall,PerCrateMass,Stock,"Repair")
+my_ctld:AddCratesRepair("Hawk System (2)",{"Blue SAM HAWK"},CTLD_CARGO.Enum.REPAIR,CratesSmall,PerCrateMass,Stock,"Repair")
 my_ctld:AddCratesRepair("EWR 117 Radar (2)",{"Blue EWR 117"},CTLD_CARGO.Enum.REPAIR,CratesSmall,PerCrateMass,Stock,"Repair")
 my_ctld:AddCratesRepair("EWR 117 Power System (1)",{"Blue EWR ECS"},CTLD_CARGO.Enum.REPAIR,CratesRep,PerCrateMass,Stock,"Installation")
 
