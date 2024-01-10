@@ -19,7 +19,29 @@ else
   SavePath = "C:\\Users\\post\\Saved Games\\DCS\\Missions\\Sinai\\Escalation\\Persistenz"
 end
 
+_SETTINGS:SetPlayerMenuOff()
+_SETTINGS:SetA2G_MGRS()
+_SETTINGS:SetMGRS_Accuracy(3)
+
+PhaseAirbases = {
+  [1] = {AIRBASE.Sinai.Kedem,AIRBASE.Sinai.Hatzerim,AIRBASE.Sinai.Nevatim,AIRBASE.Sinai.Ramon_Airbase,AIRBASE.Sinai.Ovda},
+  [2] = {AIRBASE.Sinai.El_Arish,AIRBASE.Sinai.El_Gora,AIRBASE.Sinai.Melez,AIRBASE.Sinai.Bir_Hasanah,AIRBASE.Sinai.Abu_Rudeis,AIRBASE.Sinai.St_Catherine},
+  [3] = {AIRBASE.Sinai.Baluza,AIRBASE.Sinai.As_Salihiyah,AIRBASE.Sinai.Al_Ismailiyah,AIRBASE.Sinai.Abu_Suwayr,AIRBASE.Sinai.Difarsuwar_Airfield,AIRBASE.Sinai.Fayed,AIRBASE.Sinai.Kibrit_Air_Base},
+  [4] = {AIRBASE.Sinai.Al_Mansurah,AIRBASE.Sinai.Cairo_International_Airport,AIRBASE.Sinai.Cairo_West,AIRBASE.Sinai.AzZaqaziq,AIRBASE.Sinai.Bilbeis_Air_Base,AIRBASE.Sinai.Inshas_Airbase,AIRBASE.Sinai.Wadi_al_Jandali},
+}
+
+PhaseBorderNames = {}
+PhaseBorderZones = {}
+for i=1,4 do
+  PhaseBorderNames[i] = "Phase "..i.." Border"
+  PhaseBorderZones[i] = ZONE:New(PhaseBorderNames[i])
+end
+
 CurrentPhase = 1
+
+-------------------------------------
+-- Remove non-phase ground units
+-------------------------------------
 
 for Phase = 1,4 do
   if Phase ~= CurrentPhase then
