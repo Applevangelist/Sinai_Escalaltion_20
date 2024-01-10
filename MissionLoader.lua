@@ -5,11 +5,11 @@
 local missionfiles = {
   [1] = "Configuration.lua",
   [2] = "CTLDCSAR.lua",
-  [3] = "PlayerRecce.lua", 
+  [3] = "TaskManager.lua", 
   [4] = "Mantis.lua",
   [5] = "GCI.lua",
   [6] = "Navy.lua",
-  [7] = "TaskManager.lua",
+  [7] = "Airforce.lua",
 }
 
 local counter = 0

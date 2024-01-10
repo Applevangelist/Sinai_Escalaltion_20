@@ -1,6 +1,7 @@
 
 local PerTroopMass = 80
 local NoTroops = 6
+local NoTroopsSmall = 4
 local PerCrateMass = 500
 local Stock = nil -- endless
 local CratesBig = 8
@@ -118,9 +119,10 @@ my_ctld.useprecisecoordloads = true -- Instead if slightly varyiing the group po
 
 -- Infantry
 my_ctld:AddTroopsCargo("Infantry Squad (6)",{"Infantry"},CTLD_CARGO.Enum.TROOPS,NoTroops,PerTroopMass,Stock,"Infantry")
-my_ctld:AddTroopsCargo("Stinger Squad (4)",{"Stinger"},CTLD_CARGO.Enum.TROOPS,NoTroops,PerTroopMass,Stock,"Infantry")
-my_ctld:AddTroopsCargo("ATGM Squad (4)",{"ATGM"},CTLD_CARGO.Enum.TROOPS,NoTroops,PerTroopMass,Stock,"Infantry")
-my_ctld:AddTroopsCargo("Engineers (4)",{"Engineers"},CTLD_CARGO.Enum.ENGINEERS,NoTroops,PerTroopMass,Stock,"Infantry")
+my_ctld:AddTroopsCargo("Stinger Squad (4)",{"Stinger"},CTLD_CARGO.Enum.TROOPS,NoTroopsSmall,PerTroopMass,Stock,"Infantry")
+my_ctld:AddTroopsCargo("ATGM Squad (4)",{"ATGM"},CTLD_CARGO.Enum.TROOPS,NoTroopsSmall,PerTroopMass,Stock,"Infantry")
+my_ctld:AddTroopsCargo("Engineers (4)",{"Engineers"},CTLD_CARGO.Enum.ENGINEERS,NoTroopsSmall,PerTroopMass,Stock,"Infantry")
+my_ctld:AddTroopsCargo("Mortar Squad (4)",{"Mortar"},CTLD_CARGO.Enum.TROOPS,NoTroopsSmall,PerTroopMass,Stock,"Infantry")
 
 -- Wheels
 my_ctld:AddCratesCargo("Humvee ATGM (2)",{"Humvee ATGM"},CTLD_CARGO.Enum.VEHICLE,CratesSmall,PerCrateMass,Stock,"Rolling")
@@ -349,23 +351,66 @@ function my_ctld:OnBeforeCratesBuild(From,Event,To,Group,Unit,Vehicle)
   return self
 end
 
---[[
 local ArmyGroups = {}
 
 function my_ctld:OnAfterTroopsDeployed(From,Event,To,Group,Unit,Troops)
   local name = Troops:GetName()
-  if string.match(name,"Humvee MG",1,true) then
-    local m  = MESSAGE:New(string.format("Humvee MG %s in operation!",name),15,"CTLD"):ToBlue()
+  if string.match(name,"Mortar",1,true) then
+    local m  = MESSAGE:New(string.format("Mortar %s in operation!",name),15,"CTLD"):ToBlue()
     local name = Troops:GetName()
     ArmyGroups[name] = ARMYGROUP:New(Troops)
   end
+  --[[
   if string.match(name,"Howitzer",1,true) then
     local m  = MESSAGE:New(string.format("Howitzer %s in operation!",name),15,"CTLD"):ToBlue()
     local name = Troops:GetName()
     ArmyGroups[name] = ARMYGROUP:New(Troops)
   end
+  --]]
 end
---]]
+
+function FindMortarTargets(Mortar)
+  local mortar = Mortar -- Wrapper.Group#GROUP
+  local mortarzone = ZONE_GROUP:New("MortarZone",mortar,7000)
+  local redset = SET_UNIT:New():FilterCoalitions("red"):FilterCategories("ground"):FilterZones({mortarzone}):FilterOnce()
+  local mortarcoord = mortar:GetCoordinate()
+  local foundset = SET_UNIT:New()
+  for _,_object in pairs (redset:GetSetObjects()) do
+    local redgrp = _object -- Wrapper.Unit#UNIT
+    local redcoo = redgrp:GetCoordinate()
+    local dist = mortarcoord:Get2DDistance(redcoo)
+    if dist <= 7000 then
+      foundset:AddObject(redgrp)
+    end
+  end
+  return foundset
+end
+
+function FireMortar(Armygroup)
+  local Armygroup = Armygroup -- Ops.ArmyGroup#ARMYGROUP 
+    local Troops = Armygroup:GetGroup()
+    local inzoneset = FindMortarTargets(Troops)
+    local rounds = math.random(60,120)
+    local _grp = inzoneset:GetRandom()
+    if _grp and _grp:IsAlive() and _grp:GetCoalition() == coalition.side.RED then
+      local coord = _grp:GetCoordinate()
+      --BASE:I("Adding fire task...")
+      Armygroup:AddTaskFireAtPoint(coord,60,750,rounds)
+    end
+end
+
+function CheckMortars()
+  for _name,_armygroup in pairs(ArmyGroups) do
+    if _armygroup and _armygroup:IsAlive() then
+      FireMortar(_armygroup)
+    else
+      ArmyGroups[_name] = nil
+    end
+  end
+end
+
+local mortartimer = TIMER:New(CheckMortars)
+mortartimer:Start(300,600)
 
 my_ctld:__Start(2)
 my_ctld:__Load(5)

@@ -1,5 +1,5 @@
 -------------------------------------
--- GCI
+-- PLAYERTASKCONTROLLER
 -------------------------------------
 
 
@@ -13,6 +13,24 @@ anvil:SetEnableIlluminateTask()
 anvil:SetTransmitOnlyWithPlayers(true)
 anvil:SetEnableUseTypeNames()
 anvil:EnableTaskInfoMenu()
+anvil:EnableBuddyLasing(Recce)
+
+-- Add a lasing drone for precision bombing tasks
+local drone = SPAWN:New("Reaper")
+:OnSpawnGroup(
+  function(grp)
+    grp:CommandSetUnlimitedFuel(true)
+    grp:SetCommandImmortal(true)
+    grp:SetCommandInvisible(true)
+    local FlightGroup = FLIGHTGROUP:New(grp)
+    FlightGroup:SetDefaultImmortal(true)
+    FlightGroup:SetDefaultInvisible(true)
+    local mission = AUFTRAG:NewORBIT(ZONE:New("Rahat"):GetCoordinate(),10000,150,306,10)
+    FlightGroup:AddMission(mission)
+    anvil:EnablePrecisionBombing(FlightGroup,1688)
+  end
+)
+:Spawn()
 
 -- General Zone Target
 
@@ -108,3 +126,20 @@ if CurrentPhase == 1 then
   ScenTask2:AddFreetextTTS(("Destroy the weapon factory in Gaza!"))
   anvil:AddPlayerTaskToQueue(ScenTask2)
 end
+
+-------------------------------------
+-- PlayerRecce
+-------------------------------------
+
+local HeloPrefixes = { "UH", "SA342", "Mi.8", "Mi.24", "AH.64"}
+local PlayerSet = SET_CLIENT:New():FilterCoalitions("blue"):FilterPrefixes(HeloPrefixes):FilterStart()
+local HeloRecce = PLAYERRECCE:New("Blue HeloRecce",coalition.side.BLUE,PlayerSet)
+HeloRecce:SetCallSignOptions(true,false)
+HeloRecce:SetMenuName("Scouting")
+HeloRecce:SetTransmitOnlyWithPlayers(true)
+HeloRecce:SetSRS({140,240},{radio.modulation.AM,radio.modulation.AM},mySRSPath,"male","en-IR",mySRSPort,MSRS.Voices.Google.Standard.en_GB_Standard_F,1)
+--HeloRecce.SRS:SetProvider(MSRS.Provider.WINDOWS)
+--HeloRecce.SRS:SetVoice("Sean")
+HeloRecce:SetPlayerTaskController(anvil)
+anvil:EnableBuddyLasing(HeloRecce)
+

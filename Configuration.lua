@@ -50,7 +50,7 @@ for Phase = 1,4 do
      local function FilterOut(grp)
       if grp and grp:IsAlive() then
         local name = grp:GetName()
-        if string.find(name,"SAM",1,true) then
+        if string.find(name,"SAM",1,true) or string.find(name,"EW",1,true) then
           return false
         else
           return true

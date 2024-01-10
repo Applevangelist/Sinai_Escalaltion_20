@@ -4,8 +4,10 @@
 
 local RedZoneSet = SET_ZONE:New():FilterPrefixes("Phase . Border"):FilterOnce()
 
-local redmantis = MANTIS:New("Red Mantis","RED SAM","RED EWR",hq,"red",dynamic,"RED_AWACS",true)
+local ScootZones = SET_ZONE:New():FilterPrefixes("Scoot"):FilterOnce()
+local redmantis = MANTIS:New("Red Mantis","RED SAM","RED EW",hq,"red",dynamic,"RED AWACS",true)
 redmantis:AddZones(RedZoneSet.Set,{ZONE:New("Blue Border")})
+redmantis:AddScootZones(ScootZones,4,true)
 redmantis:__Start(1)
 
 local bluemantis = MANTIS:New("Blue Mantis","Blue SAM","Blue EWR",hq,"blue",dynamic,"BLUE AWACS",true)
