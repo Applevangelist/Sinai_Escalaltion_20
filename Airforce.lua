@@ -25,13 +25,13 @@ local redcap = EASYGCICAP:New("Red CAP",AIRBASE.Sinai.Ramon_Airbase,"red","RED E
 redcap:SetDefaultNumberAlter5Standby(6)
 
 redcap:AddPatrolPointCAP(AIRBASE.Sinai.Ramon_Airbase,ZONE:New("RED CAP Point 1"):GetCoordinate(),Altitude,Speed,320,50)
-redcap:AddSquadron("RCAP MIG29","Domna",AIRBASE.Sinai.Ramon_Airbase,99,AI.Skill.EXCELLENT,102,Livery)
-redcap:AddSquadron("RCAP JF17","Besovets",AIRBASE.Sinai.Ramon_Airbase,99,AI.Skill.EXCELLENT,202,Livery)
+redcap:AddSquadron("RCAP MIG29","Domna",AIRBASE.Sinai.Ramon_Airbase,99,AI.Skill.AVERAGE,102,Livery)
+redcap:AddSquadron("RCAP MIG21","Egypt",AIRBASE.Sinai.Ramon_Airbase,99,AI.Skill.AVERAGE,202,Livery)
 
 redcap:AddAirwing(AIRBASE.Sinai.Melez,"Melez AFB")
 redcap:AddPatrolPointCAP(AIRBASE.Sinai.Melez,ZONE:New("RED CAP Point 2"):GetCoordinate(),Altitude,Speed,0,60)
-redcap:AddSquadron("RCAP MIG29a","GDR",AIRBASE.Sinai.Melez,99,AI.Skill.EXCELLENT,302,Livery)
-redcap:AddSquadron("RCAP SU27a","Hotilovo",AIRBASE.Sinai.Melez,99,AI.Skill.EXCELLENT,402,Livery)
+redcap:AddSquadron("RCAP MIG29a","GDR",AIRBASE.Sinai.Melez,99,AI.Skill.AVERAGE,302,Livery)
+redcap:AddSquadron("RCAP SU27a","Hotilovo",AIRBASE.Sinai.Melez,99,AI.Skill.AVERAGE,402,Livery)
 
 redcap:AddPatrolPointAwacs(AIRBASE.Sinai.Melez,ZONE:FindByName("Red Awacs Point"):GetCoordinate(),Altitude,Speed,180,80)
 redcap:AddAWACSSquadron("RED AWACS","RED AWACS",AIRBASE.Sinai.Melez,99,AI.Skill.EXCELLENT,402,Livery,251,radio.modulation.AM)

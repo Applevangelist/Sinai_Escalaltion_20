@@ -3,10 +3,10 @@
 -------------------------------------
 
 if BASE.ServerName and BASE.ServerName ~= "DCS Server" then
-  mySRSPath = "C:\Users\jgf\Desktop\srs\srs-private"
-  mySRSPort = 5010
+  mySRSPath = "C:\\Users\\jgf\\Desktop\\srs\\srs-private"
+  mySRSPort = 5004
   mySRSGKey = "C:\\Users\\jgf\\Desktop\\srs\\srs-training2\\theta-mile-349308-0ca2eeb17600.json"
-  SavePath = "C:\Users\jgf\Saved Games\DCS.openbeta_server_private\persistent-data"
+  SavePath = "C:\\Users\\jgf\\Saved Games\\DCS.openbeta_server_private\\persistent-data"
 else
   MSRS.SetDefaultBackendGRPC()
   MSRS.LoadConfigFile()

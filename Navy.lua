@@ -3,7 +3,7 @@
 -------------------------------------
 
 local RecoveryTanker = RECOVERYTANKER:New(UNIT:FindByName("CVN-73 Battle Group-1"),"RescueTanker")
-RecoveryTanker:SetRadio(255)
+RecoveryTanker:SetRadio(269)
 RecoveryTanker:SetTACAN(74,"SHL","Y")
 RecoveryTanker:SetTakeoffHot()
 RecoveryTanker:SetCallsign(CALLSIGN.Tanker.Navy_One,1)
@@ -15,7 +15,7 @@ local AWACS = RECOVERYTANKER:New(UNIT:FindByName("CVN-73 Battle Group-1"),"Carri
 AWACS:SetAWACS(true,false)
 AWACS:SetTakeoffHot()
 AWACS:SetCallsign(CALLSIGN.AWACS.Wizard,1)
-AWACS:SetRadio(251)
+AWACS:SetRadio(265)
 AWACS:SetAltitude(20000)
 AWACS:__Start(3)
 

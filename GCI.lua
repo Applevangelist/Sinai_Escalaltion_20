@@ -6,7 +6,7 @@ local AirWing = AIRWING:New("Warehouse Hatzor","Echo")
 AirWing:SetMarker(false)
 AirWing:Start()
 
-local evileye = AWACS:New("Echo",AirWing,coalition.side.BLUE,AIRBASE.Sinai.Hatzor,"AwacsOrbit","Jerusalem","Hebron",271,radio.modulation.AM)
+local evileye = AWACS:New("Echo",AirWing,coalition.side.BLUE,AIRBASE.Sinai.Hatzor,"AwacsOrbit","Jerusalem","Hebron",266,radio.modulation.AM)
 evileye:SetAsGCI(GROUP:FindByName("Blue EWR Hatzor"))
 evileye:SetCallSignOptions(true,false)
 evileye:SetCustomAWACSCallSign({

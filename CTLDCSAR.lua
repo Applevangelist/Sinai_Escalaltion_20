@@ -2,7 +2,7 @@
 local PerTroopMass = 80
 local NoTroops = 6
 local NoTroopsSmall = 4
-local PerCrateMass = 500
+local PerCrateMass = 400
 local Stock = nil -- endless
 local CratesBig = 8
 local CratesMed = 4
@@ -11,7 +11,7 @@ local CratesRep = 1
 local FarpFileName = "Escalation_FARPS.csv"
 local CTLD_Filename = "CTLD_save.csv"
 local CSAR_Filename = "CSAR.csv"
-local HeloPrefixes = { "UH", "SA342", "Mi-8", "Mi-24", "AH-64"}
+local HeloPrefixes = { "UH", "SA342", "Mi.8", "Mi.24", "AH.64"}
 
 
 -------------------------------------
@@ -99,7 +99,7 @@ my_ctld.basetype = "container_cargo" -- default shape of the cargo container
 my_ctld.droppedbeacontimeout = 1200 -- dropped beacon lasts 20 minutes
 my_ctld.usesubcats = true -- use sub-category names for crates, adds an extra menu layer in "Get Crates", useful if you have > 10 crate types.
 my_ctld.placeCratesAhead = true -- place crates straight ahead of the helicopter, in a random way. If true, crates are more neatly sorted.
-my_ctld.nobuildinloadzones = true -- forbid players to build stuff in LOAD zones if set to `true`
+my_ctld.nobuildinloadzones = false -- forbid players to build stuff in LOAD zones if set to `true`
 my_ctld.movecratesbeforebuild = true -- crates must be moved once before they can be build. Set to false for direct builds.
 my_ctld.surfacetypes = {land.SurfaceType.LAND,land.SurfaceType.ROAD,land.SurfaceType.SHALLOW_WATER} -- surfaces for loading back objects.
 my_ctld.nobuildmenu = false -- if set to true effectively enforces to have engineers build/repair stuff for you.
@@ -112,6 +112,9 @@ my_ctld.filename =  CTLD_Filename -- example filename
 my_ctld.filepath = SavePath -- example path
 my_ctld.eventoninject = true -- fire OnAfterCratesBuild and OnAfterTroopsDeployed events when loading (uses Inject functions)
 my_ctld.useprecisecoordloads = true -- Instead if slightly varyiing the group position, try to maintain it as is
+
+my_ctld:SetUnitCapabilities("SA342L",false,true,0,4,12,400)
+my_ctld:SetUnitCapabilities("SA342M",false,true,0,4,12,400)
 
 ---
 -- CARGO
