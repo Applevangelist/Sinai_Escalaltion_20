@@ -77,6 +77,10 @@ redcap:AddSquadron("RCAP MIG25","Hotilovo BH",AIRBASE.Sinai.Bir_Hasanah,99,Skill
 local Blueborder = ZONE:FindByName("Blue Border")
 redcap:AddRejectZone(Blueborder)
 
+for i=1,4 do
+    redcap:AddAcceptZone(PhaseBorderZones[i])
+end
+
 -- Leichte Gegner:
 -- RCAP MIG21
 -- RCAP MIG23
