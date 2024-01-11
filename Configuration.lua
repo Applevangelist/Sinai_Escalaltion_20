@@ -39,6 +39,10 @@ end
 
 CurrentPhase = 1
 
+---
+AIRBASE:FindByName(AIRBASE.Sinai.Ramon_Airbase):SetParkingSpotWhitelist({31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,37,48,49,50,51,52,61,62,63,64,65,66,99,100,101,102,103,104,105,106,107})
+AIRBASE:FindByName(AIRBASE.Sinai.Ovda):SetParkingSpotWhitelist({4,5,6,7,8,9,30,31,32,33,34,35,36,37,38,39,40,41,42,43,48,49,50,51,52,53,72,73,74,75,76,77,78,79,80,81,82,83,84,85})
+
 -------------------------------------
 -- Remove non-phase ground units
 -------------------------------------
