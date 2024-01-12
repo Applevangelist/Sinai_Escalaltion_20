@@ -4,12 +4,14 @@
 
 local missionfiles = {
   [1] = "Configuration.lua",
-  [2] = "CTLDCSAR.lua",
-  [3] = "TaskManager.lua", 
-  [4] = "Mantis.lua",
-  [5] = "GCI.lua",
-  [6] = "Navy.lua",
-  [7] = "Airforce.lua",
+  [2] = "Generals.lua",
+  --[3] = "CTLDCSAR.lua",
+  --[4] = "TaskManager.lua", 
+  --[5] = "Mantis.lua",
+  --[6] = "GCI.lua",
+  --[7] = "Navy.lua",
+  --[8] = "Airforce.lua",
+  --[9] = "Tanker.lua",
 }
 
 local counter = 0
@@ -22,7 +24,7 @@ function Loader()
   local filetoload = path..filename
     BASE:I(filetoload)
     assert(loadfile(filetoload))()
-    MESSAGE:New("***** "..string.gsub(filename,".lua$","").." loaded!*****"):ToLog():ToAll()
+    MESSAGE:New("***** "..string.gsub(filename,".lua$","").." loaded! *****"):ToLog():ToAll()
   end
 end
 
