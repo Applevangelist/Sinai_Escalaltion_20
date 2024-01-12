@@ -79,15 +79,23 @@ end
 -------------------------------------
 
 local redgroundfilename = "RedGround.csv"
+local redspawnedgroundfilename = "RedGroundSpawned.csv"
+local bluegroundfilename = "BlueGroundSpawned.csv"
 local redstaticsfilename = "RedStatics.csv"
 
+local reddynamic = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Spetznatz","Grouse"}):FilterStart()
+local bluedynamic = SET_GROUP:New():FilterCoalitions("blue"):FilterCategoryGround():FilterPrefixes({"Marines","ADStinger"}):FilterStart()
+
+local redgroups = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
+local redstatics = SET_STATIC:New():FilterCoalitions("red"):FilterOnce()
+
 function SaveGround()
-  local redgroups = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
   local names = redgroups:GetSetNames()
   UTILS.SaveStationaryListOfGroups(names,SavePath,redgroundfilename,true)
-  local redstatics = SET_STATIC:New():FilterCoalitions("red"):FilterOnce()
   local snames = redstatics:GetSetNames()
   UTILS.SaveStationaryListOfStatics(snames,SavePath,redstaticsfilename)
+  UTILS.SaveSetOfGroups(reddynamic,SavePath,redspawnedgroundfilename,true)
+  UTILS.SaveSetOfGroups(bluedynamic,SavePath,bluegroundfilename,true)
 end
 
 function LoadGround()
