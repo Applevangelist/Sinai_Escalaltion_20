@@ -11,6 +11,7 @@ local bluecap = EASYGCICAP:New("Blue CAP",BluePhase1Airbase,"blue","Blue EWR")
 bluecap:AddPatrolPointCAP(BluePhase1Airbase,ZONE:New("Blue CAP Zone 1"):GetCoordinate(),alt,300,90,40)
 bluecap:AddSquadron("CAP M2000C","Vendee",BluePhase1Airbase,99,AI.Skill.EXCELLENT,102,"Cambresis")
 bluecap:AddSquadron("CAP F1M","US F1M",BluePhase1Airbase,99,AI.Skill.EXCELLENT,102,"USA Company Skin 2 (M-EE)")
+
 bluecap:SetDefaultNumberAlter5Standby(0)
 bluecap:SetDefaultEngageRange(50) --  50NM
 bluecap:SetMaxAliveMissions(3)

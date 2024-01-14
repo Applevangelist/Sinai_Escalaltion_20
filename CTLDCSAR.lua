@@ -159,10 +159,29 @@ zones:ForEach(
       local name = zone:GetName()
       local coa = airbase:GetCoalition()
       local active = coa == coalition.side.BLUE and true or false
-       my_ctld:AddCTLDZone(name,CTLD.CargoZoneType.LOAD,SMOKECOLOR.Blue,active,active)
+      my_ctld:AddCTLDZone(name,CTLD.CargoZoneType.LOAD,SMOKECOLOR.Blue,active,active)
     end
   end
 )
+
+--- activate zones which switched hands
+
+function CTLDCheckBases()
+  zones:ForEach(
+    function(airbase)
+      local zone = airbase:GetZone()
+      if zone and (airbase:IsAirdrome() or airbase:IsHelipad()) then
+        local name = zone:GetName()
+        local coa = airbase:GetCoalition()
+        local active = coa == coalition.side.BLUE and true or false
+        my_ctld:ActivateZone(name,CTLD.CargoZoneType.LOAD,active)
+      end
+    end
+  )
+end
+
+local CTLDCheckTimer = TIMER:New(CTLDCheckBases)
+CTLDCheckTimer:Start(300,300)
 
 ---
 -- FARP Building

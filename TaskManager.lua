@@ -12,6 +12,7 @@ anvil:SetCallSignOptions(true,false)
 anvil:SetEnableIlluminateTask()
 anvil:SetTransmitOnlyWithPlayers(true)
 anvil:SetEnableUseTypeNames()
+anvil:SetAllowFlashDirection(true)
 anvil:EnableTaskInfoMenu()
 anvil:EnableBuddyLasing(Recce)
 
