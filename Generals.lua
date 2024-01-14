@@ -92,7 +92,7 @@ function BlueStrategyRun()
     
   end
   
-  if PlayerSet:CountAlive() == 0 then return end
+  if PlayerSet:CountAlive() == 0 and debug == false then return end
   
   if BlueKeyTarget then
     --UTILS.PrintTableToLog(BlueKeyTarget)
@@ -249,7 +249,12 @@ function BlueStrategyRun()
 end
 
 local HowiTimer = TIMER:New(BlueStrategyRun)
-HowiTimer:Start(60,20*60)
+if debug == true then
+  HowiTimer:Start(10,20,4*20)
+else
+  HowiTimer:Start(60,20*60)
+end
+
 
 function ShowObjective()
   local report = REPORT:New("Syria Escalation")
@@ -356,7 +361,7 @@ function RedStrategyRun()
     
   end
   
-  if PlayerSet:CountAlive() == 0 and not debug then return end
+  if PlayerSet:CountAlive() == 0 and debug==false then return end
   
   if RedKeyTarget then
     --UTILS.PrintTableToLog(RedKeyTarget)
@@ -514,4 +519,9 @@ function RedStrategyRun()
 end
 
 local AlsisiTimer = TIMER:New(RedStrategyRun)
-AlsisiTimer:Start(45,20*60)
+
+if debug == true then
+  AlsisiTimer:Start(15,20,4*20)
+else
+  AlsisiTimer:Start(45,20*60)
+end

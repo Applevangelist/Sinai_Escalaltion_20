@@ -103,8 +103,8 @@ end
 function LoadGround()
   UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,false)
   UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,false)
-  UTILS.LoadSetOfGroups(SavePath,reddynamic,true,true,false)
-  UTILS.LoadSetOfGroups(SavePath,bluedynamic,true,true,false)
+  UTILS.LoadSetOfGroups(SavePath,redspawnedgroundfilename,true,true,false)
+  UTILS.LoadSetOfGroups(SavePath,bluegroundfilename,true,true,false)
 end
 
 local SaveTimer = TIMER:New(SaveGround)

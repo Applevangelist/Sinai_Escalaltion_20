@@ -8,7 +8,7 @@ AirWing:Start()
 
 local evileye = AWACS:New("Echo",AirWing,coalition.side.BLUE,AIRBASE.Sinai.Hatzor,"AwacsOrbit","Jerusalem","Hebron",266,radio.modulation.AM)
 evileye:SetAsGCI(GROUP:FindByName("Blue EWR Hatzor"))
-evileye:SetCallSignOptions(true,false)
+evileye:SetCallSignOptions(true,true)
 evileye:SetCustomAWACSCallSign({
                [1]="Echo", -- Overlord
                [2]="Echo", -- Magic
