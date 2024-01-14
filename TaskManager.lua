@@ -39,7 +39,7 @@ local zonetarget = PhaseBorderZones[CurrentPhase]
 local zoneset = SET_GROUP:New():FilterZones({zonetarget}):FilterCategoryGround():FilterCoalitions("red"):FilterOnce()
 local ztarget = TARGET:New(zoneset)
 local zonetask = PLAYERTASK:New(AUFTRAG.Type.BAI,ztarget,true,99,"Neutralize all REDFOR units in "..PhaseBorderNames[CurrentPhase].." Zone!")
-zonetask:SetMenuName("Conquer zone")
+zonetask:SetMenuName("Phase Objective")
 zonetask:AddFreetext("Neutralize all REDFOR units in "..PhaseBorderNames[CurrentPhase].." Zone!")
 zonetask:AddConditionSuccess(
   function(set)
@@ -53,6 +53,15 @@ zonetask:AddConditionSuccess(
   zoneset
   )
 anvil:AddPlayerTaskToQueue(zonetask)
+
+function zonetask:OnAfterSuccess(From,Event,To)
+  if CurrentPhase and CurrentPhase < 4 then
+    MESSAGE:New("Well done! We have won this phase!",30,"Eisenhower",true):ToAll():ToLog()
+    CurrentPhase = CurrentPhase + 1
+  else
+    MESSAGE:New("Well done! We have won the war!",30,"Eisenhower",true):ToAll():ToLog()
+  end
+end
 
 -- Airbase targets
 

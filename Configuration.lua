@@ -37,6 +37,8 @@ for i=1,4 do
   PhaseBorderZones[i] = ZONE:New(PhaseBorderNames[i])
 end
 
+--- TODO Load/Save Phase State
+
 CurrentPhase = 1
 
 ---
@@ -78,10 +80,10 @@ end
 -- Persistenz
 -------------------------------------
 
-local redgroundfilename = "RedGround.csv"
-local redspawnedgroundfilename = "RedGroundSpawned.csv"
-local bluegroundfilename = "BlueGroundSpawned.csv"
-local redstaticsfilename = "RedStatics.csv"
+local redgroundfilename = "RedGround_"..CurrentPhase..".csv"
+local redspawnedgroundfilename = "RedGroundSpawned_"..CurrentPhase..".csv"
+local bluegroundfilename = "BlueGroundSpawned_"..CurrentPhase..".csv"
+local redstaticsfilename = "RedStatics_"..CurrentPhase..".csv"
 
 local reddynamic = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Spetznatz","Grouse"}):FilterStart()
 local bluedynamic = SET_GROUP:New():FilterCoalitions("blue"):FilterCategoryGround():FilterPrefixes({"Marines","ADStinger"}):FilterStart()
@@ -99,8 +101,10 @@ function SaveGround()
 end
 
 function LoadGround()
-  UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,true,5,Density)
-  UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,true,5,Density)
+  UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,false)
+  UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,false)
+  UTILS.LoadSetOfGroups(SavePath,reddynamic,true,true,false)
+  UTILS.LoadSetOfGroups(SavePath,bluedynamic,true,true,false)
 end
 
 local SaveTimer = TIMER:New(SaveGround)

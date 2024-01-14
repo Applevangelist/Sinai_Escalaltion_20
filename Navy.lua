@@ -15,7 +15,7 @@ local AWACS = RECOVERYTANKER:New(UNIT:FindByName("CVN-73 Battle Group-1"),"Carri
 AWACS:SetAWACS(true,false)
 AWACS:SetTakeoffHot()
 AWACS:SetCallsign(CALLSIGN.AWACS.Wizard,1)
-AWACS:SetRadio(265)
+AWACS:SetRadio(264)
 AWACS:SetAltitude(20000)
 AWACS:__Start(3)
 

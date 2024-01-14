@@ -6,6 +6,18 @@
 -- BLUE
 -------------------------------------
 
+local debug = false
+
+local BlueKeyBases = {
+  [1] = AIRBASE.Sinai.Ben_Gurion,
+  [2] = AIRBASE.Sinai.Nevatim,
+  [3] = AIRBASE.Sinai.Melez,
+  [4] = AIRBASE.Sinai.Melez,
+}
+
+local BlueBomberSpawnZone = "Bomber Spawns"
+local BlueKeyAirbase = BlueKeyBases[CurrentPhase]
+
 local BomberTemplate = "Blue Bomber Squad"
 local BomberHeight = 30000
 local BomberSpeed = 400
@@ -23,6 +35,8 @@ local TansportTemplate = "Blue Transport Squad"
 local TansportHeight = 3000
 local TansportSpeed = 200
 local TransportLandTime = 120
+
+
 
 local PlayerSet = SET_CLIENT:New():FilterActive(true):FilterStart()
 
@@ -87,13 +101,13 @@ function BlueStrategyRun()
     -- phases 1 - bomb runway 2 - CAS 3 - try to land troops 4 - set up airdefense
     if phase == 1 and not BombSquad then
       MESSAGE:New("Sending Bombers to "..BlueKeyTarget.name,15,"Eisenhower"):ToAll():ToLog()
-      local SpawnCoord = ZONE:FindByName("Bomber Spawns"):GetCoordinate()
+      local SpawnCoord = ZONE:FindByName(BlueBomberSpawnZone):GetCoordinate()
       SpawnCoord:SetAltitude(UTILS.FeetToMeters(BomberHeight))
       local bomber = SPAWN:NewWithAlias(BomberTemplate, "Blue Bomber Squad-"..math.random(1,10000))   
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
+            FG:SetHomebase(AIRBASE:FindByName(BlueKeyAirbase))
             local coordinate = BlueKeyTarget.coordinate
             local point
             if coordinate then
@@ -128,7 +142,7 @@ function BlueStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
+            FG:SetHomebase(AIRBASE:FindByName(BlueKeyAirbase))
             local coordinate = BlueKeyTarget.coordinate
             local point
             if coordinate then
@@ -156,7 +170,7 @@ function BlueStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
+            FG:SetHomebase(AIRBASE:FindByName(nearest))
             local coordinate = BlueKeyTarget.coordinate -- Core.Point#COORDINATE
             local point
             if coordinate then
@@ -194,7 +208,7 @@ function BlueStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
+            FG:SetHomebase(AIRBASE:FindByName(nearest))
             local coordinate = BlueKeyTarget.coordinate -- Core.Point#COORDINATE
             local point
             if coordinate then
@@ -259,6 +273,16 @@ local keytargetmenu = MENU_COALITION_COMMAND:New(coalition.side.BLUE,"Key Target
 -- Red
 -------------------------------------
 
+local RedKeyBases = {
+  [1] = AIRBASE.Sinai.Bilbeis_Air_Base,
+  [2] = AIRBASE.Sinai.Bilbeis_Air_Base,
+  [3] = AIRBASE.Sinai.Cairo_West,
+  [4] = AIRBASE.Sinai.Cairo_West,
+}
+
+local RedBomberSpawnZone = "Red Bomber Spawns"
+local RedKeyBase = RedKeyBases[CurrentPhase]
+
 local RedBomberTemplate = "Red Bomber Squad"
 local RedBomberHeight = 30000
 local RedBomberSpeed = 400
@@ -277,12 +301,8 @@ local RedTansportHeight = 3000
 local RedTansportSpeed = 200
 local RedTransportLandTime = 120
 
-local RedKeyBase = AIRBASE.Sinai.Bilbeis_Air_Base
-
 local RedMarines = "Spetznatz"
 local RedStinger = "Grouse"
-
-local debug = false
 
 local Alsisi = STRATEGO:New("Al-Sisi",coalition.side.RED,100)
 Alsisi:SetUsingBudget(true,1000)
@@ -346,7 +366,7 @@ function RedStrategyRun()
     -- phases 1 - bomb runway 2 - CAS 3 - try to land troops 4 - set up airdefense
     if phase == 1 and not RedBombSquad then
       MESSAGE:New("Sending Bombers to "..RedKeyTarget.name,15,"Al-Sisi"):ToAllIf(debug):ToLog()
-      local SpawnCoord = ZONE:FindByName("Red Bomber Spawns"):GetCoordinate()
+      local SpawnCoord = ZONE:FindByName(RedBomberSpawnZone):GetCoordinate()
       SpawnCoord:SetAltitude(UTILS.FeetToMeters(RedBomberHeight))
       local bomber = SPAWN:NewWithAlias(RedBomberTemplate, "Red Bomber Squad-"..math.random(1,10000))   
         :OnSpawnGroup(
@@ -415,7 +435,7 @@ function RedStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(RedKeyBase))
+            FG:SetHomebase(AIRBASE:FindByName(nearest))
             local coordinate = RedKeyTarget.coordinate -- Core.Point#COORDINATE
             local point
             if coordinate then
@@ -453,7 +473,7 @@ function RedStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(RedKeyBase))
+            FG:SetHomebase(AIRBASE:FindByName(nearest))
             local coordinate = RedKeyTarget.coordinate -- Core.Point#COORDINATE
             local point
             if coordinate then
