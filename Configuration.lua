@@ -19,9 +19,10 @@ else
   SavePath = "C:\\Users\\post\\Saved Games\\DCS\\Missions\\Sinai\\Escalation\\Persistenz"
 end
 
-_SETTINGS:SetPlayerMenuOff()
+_SETTINGS:SetPlayerMenuOn()
 _SETTINGS:SetA2G_MGRS()
 _SETTINGS:SetMGRS_Accuracy(3)
+_SETTINGS:SetImperial()
 
 PhaseAirbases = {
   [1] = {AIRBASE.Sinai.Kedem,AIRBASE.Sinai.Hatzerim,AIRBASE.Sinai.Nevatim,AIRBASE.Sinai.Ramon_Airbase,AIRBASE.Sinai.Ovda},

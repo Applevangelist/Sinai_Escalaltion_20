@@ -12,6 +12,7 @@ local missionfiles = {
   [7] = "Navy.lua",
   [8] = "Airforce.lua",
   [9] = "Tanker.lua",
+  [10] = "Autolase.lua"
 }
 
 local counter = 0

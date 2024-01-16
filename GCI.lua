@@ -17,7 +17,7 @@ evileye:SetCustomAWACSCallSign({
                [5]="Echo", -- Darkstar
                })
 evileye:SetSRS(mySRSPath,nil,nil,mySRSPort,MSRS.Voices.Google.Standard.en_AU_Standard_B,1,mySRSGKey)
-evileye:SetTacticalRadios(140,0.5,radio.modulation.AM,120,6)
+evileye:SetTacticalRadios(130.5,1,radio.modulation.AM,60,9)
 evileye.PlayerCapAssignment = false
 evileye.PikesSpecialSwitch = true
 evileye.IncludeHelicopters = false

@@ -2,19 +2,17 @@
 -- PLAYERTASKCONTROLLER
 -------------------------------------
 
-
 local anvil = PLAYERTASKCONTROLLER:New("Anvil",coalition.side.BLUE,PLAYERTASKCONTROLLER.Type.A2GS)
 anvil:SetMenuName("Anvil")
 anvil:SetMenuOptions(true)
-anvil:SetSRS({135,255},{radio.modulation.AM, radio.modulation.AM},mySRSPath,nil,nil,mySRSPort,MSRS.Voices.Google.Standard.en_GB_Standard_D,1,mySRSGKey,nil,AIRBASE:FindByName(AIRBASE.Sinai.Tel_Nof):GetCoordinate())
+anvil:SetSRS({30,135,255},{radio.modulation.AM, radio.modulation.AM, radio.modulation.AM},mySRSPath,nil,nil,mySRSPort,MSRS.Voices.Google.Standard.en_GB_Standard_D,1,mySRSGKey,nil,AIRBASE:FindByName(AIRBASE.Sinai.Tel_Nof):GetCoordinate())
 anvil:SetSRSBroadcast(243,radio.modulation.AM)
-anvil:SetCallSignOptions(true,false)
+anvil:SetCallSignOptions(true,true)
 anvil:SetEnableIlluminateTask()
 anvil:SetTransmitOnlyWithPlayers(true)
 anvil:SetEnableUseTypeNames()
 anvil:SetAllowFlashDirection(true)
 anvil:EnableTaskInfoMenu()
-anvil:EnableBuddyLasing(Recce)
 
 -- Add a lasing drone for precision bombing tasks
 local drone = SPAWN:New("Reaper")
@@ -23,7 +21,6 @@ local drone = SPAWN:New("Reaper")
     grp:CommandSetUnlimitedFuel(true)
     grp:SetCommandImmortal(true)
     grp:SetCommandInvisible(true)
-    grp:CommandSetUnlimitedFuel(true)
     local FlightGroup = FLIGHTGROUP:New(grp)
     FlightGroup:SetDefaultImmortal(true)
     FlightGroup:SetDefaultInvisible(true)
@@ -32,7 +29,8 @@ local drone = SPAWN:New("Reaper")
     anvil:EnablePrecisionBombing(FlightGroup,1688,ZONE:New("Rahat"):GetCoordinate())
   end
 )
-:Spawn()
+:SpawnFromCoordinate(ZONE:New("Rahat"):GetCoordinate(UTILS.FeetToMeters(12000)))
+
 
 -- General Zone Target
 
@@ -72,12 +70,39 @@ for _,_name in pairs(PhaseAirbases[CurrentPhase]) do
     local target = TARGET:New(AB)
     local task = PLAYERTASK:New(AUFTRAG.Type.CAS,target,true,99,"Conquer airbase ".._name.."!")
     task:SetMenuName("Conquer ".._name)
-    task:AddFreetext("Conquer and fortify airbase ".._name..".")
+    task:AddFreetext("Conquer airbase ".._name..".")
     task:AddConditionSuccess(
       function(ab)
         local afb = ab -- Wrapper.Airbase#AIRBASE
         if afb:GetCoalition() == coalition.side.BLUE then
           return true
+        else
+          return false
+        end
+      end, AB
+    )
+    anvil:AddPlayerTaskToQueue(task)
+  end
+end
+
+for _,_name in pairs(PhaseAirbases[CurrentPhase]) do
+  local AB = AIRBASE:FindByName(_name) -- Wrapper.Airbase#AIRBASE
+  if AB:GetCoalition() ~= coalition.side.BLUE then
+    local target = AB:GetZone()
+    local task = PLAYERTASK:New(AUFTRAG.Type.CTLD,target,true,99,"Fortify airbase ".._name.."!")
+    task:SetMenuName("Fortify ".._name)
+    task:AddFreetext("Fortify airbase ".._name..". Transport and build a Linebacker in the airbase zone!")
+    task:AddConditionSuccess(
+      function(ab)
+        local afb = ab -- Wrapper.Airbase#AIRBASE
+        if afb:GetCoalition() == coalition.side.BLUE then
+          local zone = afb:GetZone()
+          local linebacker = SET_GROUP:New():FilterCoalitions("blue"):FilterCategoryGround():FilterPrefixes("Linebacker"):FilterZones({zone}):FilterOnce():CountAlive()
+          if linebacker > 0 then
+            return true
+          else
+            return false
+          end
         else
           return false
         end
@@ -135,7 +160,15 @@ if CurrentPhase == 1 then
   ScenTask2:SetMenuName("Bomb Factory")
   ScenTask2:AddFreetext("Destroy the weapon factory in Gaza!")
   ScenTask2:AddFreetextTTS(("Destroy the weapon factory in Gaza!"))
-  anvil:AddPlayerTaskToQueue(ScenTask2)
+  anvil:AddPlayerTaskToQueue(ScenTask2) 
+  
+  local TgtSet3 = SET_ZONE:New():FilterPrefixes("ovda"):FilterOnce()
+  local scenset3 = SET_SCENERY:New(TgtSet3)
+  local ScenTask3 = PLAYERTASK:New(AUFTRAG.Type.PRECISIONBOMBING,TARGET:New(scenset3),true,99,"Destroy the weapon storages in Eilat!")
+  ScenTask3:SetMenuName("Bomb Storage")
+  ScenTask3:AddFreetext("Destroy the weapon storages in Eilat!")
+  ScenTask3:AddFreetextTTS(("Destroy the weapon storages in Eilat!"))
+  anvil:AddPlayerTaskToQueue(ScenTask3)
 end
 
 -------------------------------------
@@ -153,4 +186,5 @@ HeloRecce:SetSRS({140,240},{radio.modulation.AM,radio.modulation.AM},mySRSPath,"
 --HeloRecce.SRS:SetVoice("Sean")
 HeloRecce:SetPlayerTaskController(anvil)
 anvil:EnableBuddyLasing(HeloRecce)
+
 
