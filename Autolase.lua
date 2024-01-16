@@ -54,7 +54,17 @@ local function Handler(Keywords,Coord)
   end
 end
 
+MESSAGE.SetMSRS(mySRSPath,mySRSPort,mySRSGKey,{30,135,255},{radio.modulation.FM, radio.modulation.AM, radio.modulation.AM},Gender,Culture,MSRS.Voices.Google.Standard.en_AU_Standard_B,coalition.side.BLUE,1,"PNTR")
+local lasttxt = timer.getAbsTime()
 -- Event function
 function operations:OnAfterMarkChanged(From,Event,To,Text,Keywords,Coord)
   Handler(Keywords,Coord)
+  local accuracy = {}
+  accuracy.MGRS_Accuracy = 3
+  local coordtext = Coord:ToStringMGRS(accuracy)
+  local text = string.format("Roger, pointer moving to %s!",coordtext)
+  if timer.getAbsTime()-lasttxt > 10 then
+    MESSAGE:New(text,15,"Pointer"):ToBlue():ToLog():ToSRSBlue()
+    lasttxt = timer.getAbsTime()
+  end
 end

@@ -8,7 +8,6 @@ if BASE.ServerName and BASE.ServerName ~= "DCS Server" then
   mySRSGKey = "C:\\Users\\jgf\\Desktop\\srs\\srs-training2\\theta-mile-349308-0ca2eeb17600.json"
   SavePath = "C:\\Users\\jgf\\Saved Games\\DCS.openbeta_server_private\\persistent-data"
 else
-  MSRS.SetDefaultBackendGRPC()
   MSRS.LoadConfigFile()
   GRPC.debug = true
   GRPC.integrityCheckDisabled = true

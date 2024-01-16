@@ -5,7 +5,7 @@
 local anvil = PLAYERTASKCONTROLLER:New("Anvil",coalition.side.BLUE,PLAYERTASKCONTROLLER.Type.A2GS)
 anvil:SetMenuName("Anvil")
 anvil:SetMenuOptions(true)
-anvil:SetSRS({30,135,255},{radio.modulation.AM, radio.modulation.AM, radio.modulation.AM},mySRSPath,nil,nil,mySRSPort,MSRS.Voices.Google.Standard.en_GB_Standard_D,1,mySRSGKey,nil,AIRBASE:FindByName(AIRBASE.Sinai.Tel_Nof):GetCoordinate())
+anvil:SetSRS({30,135,255},{radio.modulation.FM, radio.modulation.AM, radio.modulation.AM},mySRSPath,nil,nil,mySRSPort,MSRS.Voices.Google.Standard.en_GB_Standard_D,1,mySRSGKey,nil,AIRBASE:FindByName(AIRBASE.Sinai.Tel_Nof):GetCoordinate())
 anvil:SetSRSBroadcast(243,radio.modulation.AM)
 anvil:SetCallSignOptions(true,true)
 anvil:SetEnableIlluminateTask()
