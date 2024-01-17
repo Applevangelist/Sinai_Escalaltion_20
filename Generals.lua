@@ -47,7 +47,7 @@ Howi:__Start(1)
 
 function Howi:OnAfterNodeEvent(From,Event,To,OpsZone,Coalition)
   local name = OpsZone:GetName() or "Unknown"
-  if Coalition == self.coalition then
+  if Coalition == self.coalition and OpsZone:GetPreviousOwner() ~= self.coalition  then
     MESSAGE:New(string.format("We won %s! Well done!",name),20,"Eisenhower"):ToAll()
     local points = self:GetNodeWeight(name) or 0
     self:AddBudget(points)

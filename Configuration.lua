@@ -37,6 +37,8 @@ for i=1,4 do
   PhaseBorderZones[i] = ZONE:New(PhaseBorderNames[i])
 end
 
+UseAirboss = false
+
 --- TODO Load/Save Phase State
 
 CurrentPhase = 1
