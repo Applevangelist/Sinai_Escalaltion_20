@@ -67,6 +67,14 @@ mycsar.filepath = SavePath
 mycsar:__Start(1)
 mycsar:__Load(4)
  
+function mycsar:OnAfterRescued(From,Event,To,HeliUnit,HeliName,PilotsSaved)
+  local playername = HeliUnit:GetPlayerName() or "Pilot"
+  local num = PilotsSaved or 1
+  local points = num * 50
+  local text = string.format("Well done %s! You saved %d pilot(s)! Adding %d resource points.",playername,num,points)
+  MESSAGE:New(text,15,"CSAR"):ToBlue()
+  HowiAddBudget(points)
+end 
  -------------------------------------
 -- CTLD
 -------------------------------------
@@ -364,12 +372,22 @@ end
 -- We're using OnBefore ... to add a MOVE zone
 function my_ctld:OnBeforeTroopsDeployed(From,Event,To,Group,Unit,Troops)
   BuildMoveZones(Group,Unit,Troops)
+  local playername = Unit:GetPlayerName() or "Pilot"
+  local points = 100
+  local text = string.format("Well done %s! You have successfully deployed troops into action! Adding %d resource points.",playername,points)
+  MESSAGE:New(text,15,"CTLD"):ToBlue()
+  HowiAddBudget(points)
   return self
 end
 
 -- We're using OnBefore ... to add a MOVE zone
 function my_ctld:OnBeforeCratesBuild(From,Event,To,Group,Unit,Vehicle)
   BuildMoveZones(Group,Unit,Vehicle)
+  local playername = Unit:GetPlayerName() or "Pilot"
+  local points = 100
+  local text = string.format("Well done %s! You have successfully deployed stock into action! Adding %d resource points.",playername,points)
+  MESSAGE:New(text,15,"CTLD"):ToBlue()
+  HowiAddBudget(points)
   return self
 end
 
@@ -437,5 +455,4 @@ mortartimer:Start(300,600)
 my_ctld:__Start(2)
 my_ctld:__Load(5)
 
- 
  

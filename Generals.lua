@@ -255,6 +255,9 @@ else
   HowiTimer:Start(60,20*60)
 end
 
+function HowiAddBudget(Points)
+  Howi:AddBudget(Points)
+end
 
 function ShowObjective()
   local report = REPORT:New("Syria Escalation")
@@ -267,7 +270,10 @@ function ShowObjective()
     report:Add("Anvil task manager at 135 and 255 AM will help you locate and define suitable targets.")
   else
     report:Add("The General has not yet decided. In the meantime\nmake yourself useful!")
-    report:Add("Anvil task manager at 135 and 255 AM will help you locate and define suitable targets.")  end
+    report:Add("Anvil task manager at 135 and 255 AM will help you locate and define suitable targets.")  
+  end
+    report:Add("Currently available resource budget is: "..Howi:GetBudget())
+    report:Add("An attack on airbase costs: 400 points.")
     report:Add("==================================")
   MESSAGE:New(report:Text(),30,"Eisenhower"):ToCoalition(coalition.side.BLUE)
 end
@@ -287,6 +293,7 @@ local RedKeyBases = {
 
 local RedBomberSpawnZone = "Red Bomber Spawns"
 local RedKeyBase = RedKeyBases[CurrentPhase]
+local RedBomberBase = AIRBASE.Sinai.Cairo_International_Airport
 
 local RedBomberTemplate = "Red Bomber Squad"
 local RedBomberHeight = 30000
@@ -377,7 +384,7 @@ function RedStrategyRun()
         :OnSpawnGroup(
           function(grp)
             local FG = FLIGHTGROUP:New(grp)
-            FG:SetHomebase(AIRBASE:FindByName(RedKeyBase))
+            FG:SetHomebase(AIRBASE:FindByName(RedBomberBase))
             local coordinate = RedKeyTarget.coordinate
             local point
             if coordinate then
@@ -516,7 +523,37 @@ function RedStrategyRun()
   --local Bombing2, Weight2 = Alsisi:GetNextHighestWeightNodes(Weight,coalition.side.BLUE)
 
   runs=runs+1
+  Alsisi:AddBudget(100)
 end
+
+function AlsisiAddBudget(Points)
+  Alsisi:AddBudget(Points)
+end
+
+-- Earn some points
+local RedEventManager = EVENTHANDLER:New()
+local eventdebug = false
+
+function RedEventManager:_EventHandler(EventData)
+  local data = EventData -- Core.Event#EVENTDATA
+  if data.IniCoalition == coalition.side.BLUE then
+    if data.id == EVENTS.UnitLost or data.id == EVENTS.Dead then
+      local text = "***** Blue Unit lost: "..data.IniUnitName or "unknown"
+      text = text .. "! Earning 50 points!"
+      MESSAGE:New(text,10,"Red General"):ToAllIf(eventdebug):ToLog()
+      AlsisiAddBudget(50)
+    elseif data.id == EVENTS.Crash then
+      local text = "***** Blue plane or helo lost: "..data.IniUnitName or "unknown"
+      text = text .. "! Earning 100 points!"
+      MESSAGE:New(text,10,"Red General"):ToAllIf(eventdebug):ToLog()
+      AlsisiAddBudget(100)
+    end
+  end
+end
+
+RedEventManager:HandleEvent(EVENTS.UnitLost,RedEventManager._EventHandler)
+RedEventManager:HandleEvent(EVENTS.Dead,RedEventManager._EventHandler)
+RedEventManager:HandleEvent(EVENTS.Crash,RedEventManager._EventHandler)
 
 local AlsisiTimer = TIMER:New(RedStrategyRun)
 

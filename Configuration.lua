@@ -83,6 +83,7 @@ end
 -------------------------------------
 
 local redgroundfilename = "RedGround_"..CurrentPhase..".csv"
+local redshipsfilename = "RedShips_"..CurrentPhase..".csv"
 local redspawnedgroundfilename = "RedGroundSpawned_"..CurrentPhase..".csv"
 local bluegroundfilename = "BlueGroundSpawned_"..CurrentPhase..".csv"
 local redstaticsfilename = "RedStatics_"..CurrentPhase..".csv"
@@ -92,18 +93,22 @@ local bluedynamic = SET_GROUP:New():FilterCoalitions("blue"):FilterCategoryGroun
 
 local redgroups = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
 local redstatics = SET_STATIC:New():FilterCoalitions("red"):FilterOnce()
+local redships = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryShip():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
 
 function SaveGround()
   local names = redgroups:GetSetNames()
   UTILS.SaveStationaryListOfGroups(names,SavePath,redgroundfilename,true)
   local snames = redstatics:GetSetNames()
   UTILS.SaveStationaryListOfStatics(snames,SavePath,redstaticsfilename)
+  local shipnames = redships:GetSetNames()
+  UTILS.SaveStationaryListOfStatics(shipnames,SavePath,redshipsfilename)
   UTILS.SaveSetOfGroups(reddynamic,SavePath,redspawnedgroundfilename,true)
   UTILS.SaveSetOfGroups(bluedynamic,SavePath,bluegroundfilename,true)
 end
 
 function LoadGround()
   UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,false)
+  UTILS.LoadStationaryListOfGroups(SavePath,redshipsfilename,true,true,false)
   UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,false)
   UTILS.LoadSetOfGroups(SavePath,redspawnedgroundfilename,true,true,false)
   UTILS.LoadSetOfGroups(SavePath,bluegroundfilename,true,true,false)

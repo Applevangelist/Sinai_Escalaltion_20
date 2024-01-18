@@ -171,6 +171,14 @@ if CurrentPhase == 1 then
   anvil:AddPlayerTaskToQueue(ScenTask3)
 end
 
+function anvil:OnAfterTaskSuccess(From,Event,To,Task)
+  local points = 100
+  local task = Task.PlayerTaskNr
+  local text = string.format("Well done pilots! You have completed %03d! Adding %d resource points.", task, points)
+  MESSAGE:New(text,15,"ANVIL"):ToBlue()
+  HowiAddBudget(points)
+end
+
 -------------------------------------
 -- PlayerRecce
 -------------------------------------
