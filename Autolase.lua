@@ -64,7 +64,10 @@ function operations:OnAfterMarkChanged(From,Event,To,Text,Keywords,Coord)
   local coordtext = Coord:ToStringMGRS(accuracy)
   local text = string.format("Roger, pointer moving to %s!",coordtext)
   if timer.getAbsTime()-lasttxt > 10 then
-    MESSAGE:New(text,15,"Pointer"):ToBlue():ToLog():ToSRSBlue()
+    MESSAGE:New(text,15,"Pointer"):ToBlue():ToLog()--:ToSRSBlue()
+    coordtext = string.gsub(coordtext,"%s",";")
+    text = string.format("Roger, pointer moving to %s!",coordtext)
+    MESSAGE:New(text,15,"PNTR"):ToSRSBlue()
     lasttxt = timer.getAbsTime()
   end
 end

@@ -248,6 +248,9 @@ function BuildAFARP(Coordinate)
   SpawnStaticFarp:InitFARP(FARPName, FARPFreq, 0)
   SpawnStaticFarp:InitDead(false)
   
+  local Text = string.format("FARP %s @ %.2f AM",FName,FARPFreq)
+  local Marker = MARKER:New(Coordinate,Text):ReadOnly():ToAll()
+  
   -- Spawn FARP 
   local ZoneSpawn = ZONE_RADIUS:New("FARP "..FName,Coordinate:GetVec2(),160,false)
   local Heading = 0
