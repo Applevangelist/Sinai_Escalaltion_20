@@ -374,8 +374,9 @@ end
 
 -- We're using OnBefore ... to add a MOVE zone
 function my_ctld:OnBeforeTroopsDeployed(From,Event,To,Group,Unit,Troops)
+  local playername = "Pilot"
   BuildMoveZones(Group,Unit,Troops)
-  local playername = Unit:GetPlayerName() or "Pilot"
+  --local playername = Unit:GetPlayerName() or "Pilot"
   local points = 100
   local text = string.format("Well done %s! You have successfully deployed troops into action! Adding %d resource points.",playername,points)
   MESSAGE:New(text,15,"CTLD"):ToBlue()
@@ -385,8 +386,9 @@ end
 
 -- We're using OnBefore ... to add a MOVE zone
 function my_ctld:OnBeforeCratesBuild(From,Event,To,Group,Unit,Vehicle)
+  local playername = "Pilot"
   BuildMoveZones(Group,Unit,Vehicle)
-  local playername = Unit:GetPlayerName() or "Pilot"
+  --local playername = Unit:GetPlayerName() or "Pilot"
   local points = 100
   local text = string.format("Well done %s! You have successfully deployed stock into action! Adding %d resource points.",playername,points)
   MESSAGE:New(text,15,"CTLD"):ToBlue()

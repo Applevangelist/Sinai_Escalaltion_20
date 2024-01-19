@@ -101,7 +101,7 @@ function SaveGround()
   local snames = redstatics:GetSetNames()
   UTILS.SaveStationaryListOfStatics(snames,SavePath,redstaticsfilename)
   local shipnames = redships:GetSetNames()
-  UTILS.SaveStationaryListOfStatics(shipnames,SavePath,redshipsfilename)
+  UTILS.SaveStationaryListOfGroups(shipnames,SavePath,redshipsfilename)
   UTILS.SaveSetOfGroups(reddynamic,SavePath,redspawnedgroundfilename,true)
   UTILS.SaveSetOfGroups(bluedynamic,SavePath,bluegroundfilename,true)
 end
