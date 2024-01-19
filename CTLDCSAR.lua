@@ -356,7 +356,7 @@ function BuildMoveZones(Group,Unit,Troops)
     zone = ZONE_GROUP:New(Troops:GetName(),Troops,6000)
   end
   local enemyset = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryGround():FilterZones({zone}):FilterOnce()
-  if enemyset:Count() > 0 then
+  if enemyset:Count() > 0 and zone then
     --MESSAGE:New(string.format("Found %d enemy group(s) nearby!", enemyset:Count()),15):ToBlue()
     for _,_redgrp in pairs(enemyset.Set) do
       local redgrp = _redgrp -- Wrapper.Group#GROUP
@@ -365,7 +365,7 @@ function BuildMoveZones(Group,Unit,Troops)
         local zonename = "Baddies-"..math.random(1,10000)
         local redzone = ZONE_GROUP:New(zonename,redgrp,200)
         --redzone:DrawZone(-1,{1,0.6,0},1,{1,0.6,0},0.25,4)
-        BlueCTLD:AddCTLDZone(zonename,CTLD.CargoZoneType.MOVE,SMOKECOLOR.Orange,true,false)
+        my_ctld:AddCTLDZone(zonename,CTLD.CargoZoneType.MOVE,SMOKECOLOR.Orange,true,false)
         RedMoveZones[redgrp:GetName()] = redzone
       end
     end
