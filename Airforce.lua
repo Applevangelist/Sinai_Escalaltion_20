@@ -94,6 +94,7 @@ redcap:AddPatrolPointCAP(Zone22Airbase,ZONE:New("RED CAP Point 2-1"):GetCoordina
 redcap:AddSquadron("RCAP MIG31","GDR31 BH",Zone22Airbase,99,Skills[math.random(1,10)],502,"903_White")
 redcap:AddSquadron("RCAP SU27","SU27 BH",Zone22Airbase,99,Skills[math.random(1,10)],602,"Kazakhstan Air Defense Forces")
 redcap:AddSquadron("RCAP MIG25","Hotilovo BH",Zone22Airbase,99,Skills[math.random(1,10)],702,"Algerian Air Force")
+redcap:AddSquadron("RCAP SU30","Desert",Zone22Airbase,99,Skills[math.random(1,10)],702,"`desert` test paint scheme")
 
 local Blueborder = ZONE:FindByName("Blue Border")
 redcap:AddRejectZone(Blueborder)
@@ -114,3 +115,4 @@ end
 -- Schwere Gegner:
 -- RCAP MIG29s
 -- RCAP SU27
+-- RCAP SU30

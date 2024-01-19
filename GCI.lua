@@ -7,6 +7,7 @@ AirWing:SetMarker(false)
 AirWing:Start()
 
 local evileye = AWACS:New("Echo",AirWing,coalition.side.BLUE,AIRBASE.Sinai.Hatzor,"AwacsOrbit","Jerusalem","Hebron",266,radio.modulation.AM)
+evileye.DetectionSet = SET_GROUP:New():FilterCoalitions("blue"):FilterPrefixes({"Blue EWR", "AWACS", "Blue SAM"}):FilterStart()
 evileye:SetAsGCI(GROUP:FindByName("Blue EWR Hatzor"))
 evileye:SetCallSignOptions(true,true)
 evileye:SetCustomAWACSCallSign({
@@ -22,4 +23,5 @@ evileye.PlayerCapAssignment = false
 evileye.PikesSpecialSwitch = true
 evileye.IncludeHelicopters = false
 evileye:AddGroupToDetection(GROUP:FindByName("Blue EWR Hebron"))
+--evileye:Set
 evileye:__Start(2)

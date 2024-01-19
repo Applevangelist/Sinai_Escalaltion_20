@@ -9,7 +9,7 @@ local autolase = AUTOLASE:New(RecceSet,"blue","Pointer",PlayerSet)
 autolase:SetMinThreatLevel(3)
 autolase:SetMaxLasingTargets(1)
 autolase:SetLaserCodes( { 1688, 1130, 4785, 6547, 1465, 4578 })
-
+UTILS.GenerateLaserCodes()
 local FlightGroup -- Ops.FlightGroup#FLIGHTGROUP
 
 -- Add a lasing drone 
@@ -65,8 +65,12 @@ function operations:OnAfterMarkChanged(From,Event,To,Text,Keywords,Coord)
   local text = string.format("Roger, pointer moving to %s!",coordtext)
   if timer.getAbsTime()-lasttxt > 10 then
     MESSAGE:New(text,15,"Pointer"):ToBlue():ToLog()--:ToSRSBlue()
+    coordtext = string.gsub(coordtext,"MGRS.","")
     coordtext = string.gsub(coordtext,"%s",";")
-    text = string.format("Roger, pointer moving to %s!",coordtext)
+    coordtext = string.gsub(coordtext,"(%a)","%1;")
+    coordtext = string.gsub(coordtext,"(%d)","%1;")
+    coordtext = string.gsub(coordtext,";;",";")
+    text = string.format("Roger, pointer moving to MGRS %s!",coordtext)
     MESSAGE:New(text,15,"PNTR"):ToSRSBlue()
     lasttxt = timer.getAbsTime()
   end
