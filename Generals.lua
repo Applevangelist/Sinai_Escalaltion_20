@@ -68,14 +68,6 @@ function BlueStrategyRun()
   -- decide what kind of run this is - 
   local rand = math.floor((math.random(1,10000)/100)+.5)
   
-  if BlueKeyTarget and runs%5 == 0 then
-    BlueKeyTarget = nil
-    BombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    CASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    HeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    TransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-  end
-  
   if not BlueKeyTarget then
     local Ctarget = Howi:FindAffordableConsolidationTarget() -- Functional.Stratego#STRATEGO.Target
     local Starget = Howi:FindAffordableStrategicTarget() -- Functional.Stratego#STRATEGO.Target
@@ -236,15 +228,20 @@ function BlueStrategyRun()
         )
         :SpawnFromCoordinate(startcoord)
         Howi:SubtractBudget(100)
+      elseif runs%5 == 0 then
+        BlueKeyTarget = nil
+        BombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        CASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        HeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        TransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
       end
-      --BlueKeyTarget = nil
     end
   end
   
   -- TBD Bomb Strategic Targets deep inside land
   --local Bombing, Weight = Howi:GetHighestWeightNodes(coalition.side.BLUE)
   --local Bombing2, Weight2 = Howi:GetNextHighestWeightNodes(Weight,coalition.side.BLUE)
-
+  
   runs=runs+1
 end
 
@@ -333,7 +330,7 @@ function Alsisi:OnAfterNodeEvent(From,Event,To,OpsZone,Coalition)
 end
 
 local RedKeyTarget = nil -- Functional.Stratego#STRATEGO.Target
-local runs = 0
+local redruns = 0
 local maxtries = 3
 local RedBombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local RedCASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
@@ -343,14 +340,6 @@ local RedTransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 function RedStrategyRun()
   -- decide what kind of run this is - 
   local rand = math.floor((math.random(1,10000)/100)+.5)
-  
-  if RedKeyTarget and runs%5 == 0 then
-    RedKeyTarget = nil
-    RedBombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    RedCASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    RedHeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-    RedTransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
-  end
   
   if not RedKeyTarget then
     local Ctarget = Alsisi:FindAffordableConsolidationTarget() -- Functional.Stratego#STRATEGO.Target
@@ -373,7 +362,7 @@ function RedStrategyRun()
   if RedKeyTarget then
     --UTILS.PrintTableToLog(RedKeyTarget)
     MESSAGE:New("General Al-Sisi is activating airplanes!"):ToBlue()
-    local phase = (runs%4)+1
+    local phase = (redruns%4)+1
     MESSAGE:New("Attack phase "..phase.." for "..RedKeyTarget.name,15,"Al-Sisi"):ToAllIf(debug):ToLog()
     -- phases 1 - bomb runway 2 - CAS 3 - try to land troops 4 - set up airdefense
     if phase == 1 and not RedBombSquad then
@@ -513,8 +502,13 @@ function RedStrategyRun()
         )
         :SpawnFromCoordinate(startcoord)
         Alsisi:SubtractBudget(100)
+      elseif redruns%5 == 0 then
+        RedKeyTarget = nil
+        RedBombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        RedCASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        RedHeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+        RedTransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
       end
-      --RedKeyTarget = nil
     end
   end
   
@@ -522,7 +516,7 @@ function RedStrategyRun()
   --local Bombing, Weight = Alsisi:GetHighestWeightNodes(coalition.side.BLUE)
   --local Bombing2, Weight2 = Alsisi:GetNextHighestWeightNodes(Weight,coalition.side.BLUE)
 
-  runs=runs+1
+  redruns=redruns+1
   Alsisi:AddBudget(100)
 end
 
