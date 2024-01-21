@@ -1,6 +1,10 @@
 -------------------------------------
 -- PLAYERTASKCONTROLLER
 -------------------------------------
+-- assert(loadfile("C:\\Users\\post\\Saved Games\\DCS\\Missions\\Sinai\\Escalation\\TaskManager.lua"))()
+
+
+local debug = true 
 
 local anvil = PLAYERTASKCONTROLLER:New("Anvil",coalition.side.BLUE,PLAYERTASKCONTROLLER.Type.A2GS)
 anvil:SetMenuName("Anvil")
@@ -152,6 +156,18 @@ if CurrentPhase == 1 then
   ScenTask:SetMenuName("Bomb Fuel Tanks")
   ScenTask:AddFreetext("Destroy the fuel tanks at Nevatim Airbase!")
   ScenTask:AddFreetextTTS(("Destroy the fuel tanks at Nevatim Airbase!"))
+  ScenTask:AddConditionSuccess(
+    function(Set)
+      local set = Set -- Core.Set#SET_SCENERY
+      local points = set:GetRelativeLife()
+      if points <= 25 then
+        return true
+      else
+        return false
+      end
+    end,
+    scensetone
+  )
   anvil:AddPlayerTaskToQueue(ScenTask)
   
   local TgtSettwo = SET_ZONE:New():FilterPrefixes("gaza"):FilterOnce()
@@ -160,6 +176,18 @@ if CurrentPhase == 1 then
   ScenTask2:SetMenuName("Bomb Factory")
   ScenTask2:AddFreetext("Destroy the weapon factory in Gaza!")
   ScenTask2:AddFreetextTTS(("Destroy the weapon factory in Gaza!"))
+  ScenTask2:AddConditionSuccess(
+    function(Set)
+      local set = Set -- Core.Set#SET_SCENERY
+      local points = set:GetRelativeLife()
+      if points <= 25 then
+        return true
+      else
+        return false
+      end
+    end,
+    scensettwo
+  )
   anvil:AddPlayerTaskToQueue(ScenTask2) 
   
   local TgtSet3 = SET_ZONE:New():FilterPrefixes("ovda"):FilterOnce()
@@ -168,7 +196,72 @@ if CurrentPhase == 1 then
   ScenTask3:SetMenuName("Bomb Storage")
   ScenTask3:AddFreetext("Destroy the weapon storages in Eilat!")
   ScenTask3:AddFreetextTTS(("Destroy the weapon storages in Eilat!"))
+  ScenTask3:AddConditionSuccess(
+    function(Set)
+      local set = Set -- Core.Set#SET_SCENERY
+      local points = set:GetRelativeLife()
+      if points <= 25 then
+        return true
+      else
+        return false
+      end
+    end,
+    scenset3
+  )
   anvil:AddPlayerTaskToQueue(ScenTask3)
+  
+  ----------------------------------------------------
+  -- Gaza Scenery Task is a PITB
+  ----------------------------------------------------
+  
+  --if debug then
+    local flag = 100
+    local flagt = {}
+    for i=100,106 do
+      flagt[i] = USERFLAG:New(string.format("%d",i)):Set(1)
+    end
+    
+    local roleset = {}
+    scensettwo:ForEachScenery(
+      function(scen)
+        local name = scen:GetName()
+        local role = scen:GetProperty("ROLE") or "0"
+        roleset[tostring(name)] = role
+      end
+    )
+    
+    function scensettwo:OnEventHit(data)
+      --BASE:I("Event "..data.id)
+      local event = data -- Core.Event#EVENTDATA
+      if event.id == EVENTS.Hit then
+        --BASE:I("Event Hit:")
+        --BASE:I("Unit Name is "..tostring(event.TgtUnitName))
+        --BASE:I("Category is "..tostring(event.TgtCategory))
+        --BASE:I("Object Category is "..tostring(event.TgtObjectCategory))
+        --BASE:I("Type Name is "..tostring(event.TgtTypeName))
+        local zone = ZONE:FindByName("Gaza Factory Zone")
+        local scenhit = SCENERY:FindByNameInZone(event.TgtUnitName,zone,125)
+        if scenhit then
+          --BASE:I("Hit in Scenery Gaza Zone!")
+          if scensettwo:IsInSet(scenhit) then
+            --BASE:I("Target Object Hit!")
+            local role = roleset[tostring(event.TgtUnitName)]
+            --BASE:I("Role = " .. (role or 0))
+            if role and role ~= "0" then
+              flagt[tonumber(role)]:Set(99,1)
+              local coord = scenhit:GetCoordinate()
+              if coord then
+                coord:Explosion(1000,1)
+              end
+            end
+          end
+        end
+      end
+    end
+    
+    scensettwo:HandleEvent(EVENTS.Hit)
+  --end
+  
 end
 
 function anvil:OnAfterTaskSuccess(From,Event,To,Task)

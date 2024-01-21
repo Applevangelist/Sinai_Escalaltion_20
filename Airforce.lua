@@ -72,6 +72,7 @@ redcap:AddPatrolPointCAP(Zone12Airbase,ZONE:New("RED CAP Point 1-2"):GetCoordina
 redcap:AddSquadron("RCAP MIG31","GDR31",Zone12Airbase,99,Skills[math.random(1,10)],502,"174 GvIAP_Boris Safonov")
 redcap:AddSquadron("RCAP SU27","SU27",Zone12Airbase,99,Skills[math.random(1,10)],602,Livery)
 redcap:AddSquadron("RCAP MIG25","Hotilovo",Zone12Airbase,99,Skills[math.random(1,10)],702,"af standard")
+redcap:AddSquadron("RCAP F14A","Iran",Zone12Airbase,99,Skills[math.random(1,10)],112)
 
 -- ZONE 2
 
@@ -83,18 +84,18 @@ redcap:SetTankerAndAWACSInvisible(true)
 local alt = math.floor(math.random(18000,30000)/1000)*1000
 redcap:AddAirwing(Zone21Airbase,"Kibrit AFB")
 redcap:AddPatrolPointCAP(Zone21Airbase,ZONE:New("RED CAP Point 2-2"):GetCoordinate(),alt,300,86,60)
-redcap:AddSquadron("RCAP MIG29s","Domna Melez",Zone21Airbase,99,Skills[math.random(1,10)],102,"Belarusian Air Force")
-redcap:AddSquadron("RCAP MIG21","Egypt21 Melez",Zone21Airbase,99,Skills[math.random(1,10)],202,"Iraq - 9th Sqn")
-redcap:AddSquadron("RCAP MIG23","Egypt23 Melez",Zone21Airbase,99,Skills[math.random(1,10)],302,"af standard-1")
-redcap:AddSquadron("RCAP MIG25","Egypt25 Melez",Zone21Airbase,99,Skills[math.random(1,10)],402,"Algerian Air Force")
+redcap:AddSquadron("RCAP MIG29s","Domna Melez",Zone21Airbase,99,Skills[math.random(1,10)],122,"Belarusian Air Force")
+redcap:AddSquadron("RCAP MIG21","Egypt21 Melez",Zone21Airbase,99,Skills[math.random(1,10)],222,"Iraq - 9th Sqn")
+redcap:AddSquadron("RCAP MIG23","Egypt23 Melez",Zone21Airbase,99,Skills[math.random(1,10)],322,"af standard-1")
+redcap:AddSquadron("RCAP MIG25","Egypt25 Melez",Zone21Airbase,99,Skills[math.random(1,10)],422,"Algerian Air Force")
 
 local alt = math.floor(math.random(18000,30000)/1000)*1000
 redcap:AddAirwing(Zone22Airbase,"As Salihiyah AFB")
 redcap:AddPatrolPointCAP(Zone22Airbase,ZONE:New("RED CAP Point 2-1"):GetCoordinate(),alt,300,66,60)
-redcap:AddSquadron("RCAP MIG31","GDR31 BH",Zone22Airbase,99,Skills[math.random(1,10)],502,"903_White")
-redcap:AddSquadron("RCAP SU27","SU27 BH",Zone22Airbase,99,Skills[math.random(1,10)],602,"Kazakhstan Air Defense Forces")
-redcap:AddSquadron("RCAP MIG25","Hotilovo BH",Zone22Airbase,99,Skills[math.random(1,10)],702,"Algerian Air Force")
-redcap:AddSquadron("RCAP SU30","Desert",Zone22Airbase,99,Skills[math.random(1,10)],702,"`desert` test paint scheme")
+redcap:AddSquadron("RCAP MIG31","GDR31 BH",Zone22Airbase,99,Skills[math.random(1,10)],542,"903_White")
+redcap:AddSquadron("RCAP SU27","SU27 BH",Zone22Airbase,99,Skills[math.random(1,10)],642,"Kazakhstan Air Defense Forces")
+redcap:AddSquadron("RCAP MIG25","Hotilovo BH",Zone22Airbase,99,Skills[math.random(1,10)],742,"Algerian Air Force")
+redcap:AddSquadron("RCAP SU30","Desert",Zone22Airbase,99,Skills[math.random(1,10)],842,"`desert` test paint scheme")
 
 local Blueborder = ZONE:FindByName("Blue Border")
 redcap:AddRejectZone(Blueborder)

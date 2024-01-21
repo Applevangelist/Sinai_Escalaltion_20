@@ -13,4 +13,5 @@ redmantis:__Start(1)
 
 local bluemantis = MANTIS:New("Blue Mantis","Blue SAM","Blue EWR",hq,"blue",dynamic,"BLUE AWACS",true)
 bluemantis:AddZones({ZONE:New("Blue Border")})
+bluemantis:SetMaxActiveSAMs(2,2,2,6)
 bluemantis:__Start(2)
