@@ -36,11 +36,15 @@ local TansportHeight = 3000
 local TansportSpeed = 200
 local TransportLandTime = 120
 
-
+if debug then
+  BASE:TraceOn()
+  BASE:TraceClass("STRATEGO")
+end
 
 local PlayerSet = SET_CLIENT:New():FilterActive(true):FilterStart()
 
 local Howi = STRATEGO:New("Eisenhower",coalition.side.BLUE,100)
+--Howi:SetDebug(true,true,true)
 Howi:SetUsingBudget(true,500)
 Howi:SetDebug(false,false,false)
 Howi:__Start(1)
@@ -63,10 +67,22 @@ local BombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local CASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local HeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local TransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+local BlueCurrMission = nil -- Ops.Auftrag#AUFTRAG
 
 function BlueStrategyRun()
+
   -- decide what kind of run this is - 
+  BASE:I("***** Blue Strategy Run *****")
+
+  if BlueCurrMission and BlueCurrMission:IsNotOver() then
+    return
+  end
+  
+  Howi:UpdateNodeCoalitions()
+
   local rand = math.floor((math.random(1,10000)/100)+.5)
+  
+  BASE:I("**** Random number = "..rand)
   
   if not BlueKeyTarget then
     local Ctarget = Howi:FindAffordableConsolidationTarget() -- Functional.Stratego#STRATEGO.Target
@@ -120,6 +136,7 @@ function BlueStrategyRun()
               end
               FG:AddMission(mission)
               BombSquad = FG
+              BlueCurrMission = mission
             end
           end
         )
@@ -147,6 +164,7 @@ function BlueStrategyRun()
               end
               FG:AddMission(mission)
               CASSquad = FG
+              BlueCurrMission = mission
             end
           end
         )
@@ -170,9 +188,10 @@ function BlueStrategyRun()
               local mission = AUFTRAG:NewLANDATCOORDINATE(coordinate,500,100,HeloLandTime,HeloSpeed,HeloHeight)
               mission:SetMissionAltitude(HeloHeight)
               FG:AddMission(mission)
+              BlueCurrMission = mission
               local function SpawnMarines()
                 local coord = coordinate:GetRandomCoordinateInRadius(500,100)
-                local marines = SPAWN:NewWithAlias("Infantry","Marines "..math.random(1,10000))
+                local marines = SPAWN:NewWithAlias("Infantry","Marines-"..math.random(1,10000))
                   :InitRandomizeUnits(true,200,100)
                   :SpawnFromCoordinate(coord)
               end
@@ -208,9 +227,10 @@ function BlueStrategyRun()
               local mission = AUFTRAG:NewLANDATCOORDINATE(coordinate,500,100,HeloLandTime,HeloSpeed,HeloHeight)
               mission:SetMissionAltitude(HeloHeight)
               FG:AddMission(mission)
+              BlueCurrMission = mission
               local function SpawnMarines()
                 local coord = coordinate:GetRandomCoordinateInRadius(500,100)
-                local marines = SPAWN:NewWithAlias("Stinger","ADStinger "..math.random(1,10000))
+                local marines = SPAWN:NewWithAlias("ADStinger","ADStinger-"..math.random(1,10000))
                   :InitRandomizeUnits(true,200,100)
                   :SpawnFromCoordinate(coord)
               end
@@ -247,9 +267,9 @@ end
 
 local HowiTimer = TIMER:New(BlueStrategyRun)
 if debug == true then
-  HowiTimer:Start(10,20,4*20)
+  HowiTimer:Start(300,20)
 else
-  HowiTimer:Start(60,20*60)
+  HowiTimer:Start(300,20*60)
 end
 
 function HowiAddBudget(Points)
@@ -336,9 +356,18 @@ local RedBombSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local RedCASSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local RedHeloSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
 local RedTransportSquad = nil -- Ops.FlighGroup#FLIGHTGROUP
+local RedCurrMission = nil -- Ops.Auftrag#AUFTRAG
 
 function RedStrategyRun()
   -- decide what kind of run this is - 
+  BASE:I("***** Red Strategy Run *****")
+  
+  if RedCurrMission and RedCurrMission:IsNotOver() then
+    return
+  end
+  
+  Alsisi:UpdateNodeCoalitions()
+  
   local rand = math.floor((math.random(1,10000)/100)+.5)
   
   if not RedKeyTarget then
@@ -393,6 +422,7 @@ function RedStrategyRun()
                 Alsisi:AddBudget(100)
               end
               FG:AddMission(mission)
+              RedCurrMission = mission
               RedBombSquad = FG
             end
           end
@@ -420,6 +450,7 @@ function RedStrategyRun()
                 Alsisi:AddBudget(100)
               end
               FG:AddMission(mission)
+              RedCurrMission = mission
               RedCASSquad = FG
             end
           end
@@ -444,9 +475,10 @@ function RedStrategyRun()
               local mission = AUFTRAG:NewLANDATCOORDINATE(coordinate,500,100,RedHeloLandTime,RedHeloSpeed,RedHeloHeight)
               mission:SetMissionAltitude(RedHeloHeight)
               FG:AddMission(mission)
+              RedCurrMission = mission
               local function SpawnMarines()
                 local coord = coordinate:GetRandomCoordinateInRadius(500,100)
-                local marines = SPAWN:NewWithAlias(RedMarines,"Spetznatz "..math.random(1,10000))
+                local marines = SPAWN:NewWithAlias(RedMarines,"Spetznatz-"..math.random(1,10000))
                   :InitRandomizeUnits(true,200,100)
                   :SpawnFromCoordinate(coord)
               end
@@ -482,9 +514,10 @@ function RedStrategyRun()
               local mission = AUFTRAG:NewLANDATCOORDINATE(coordinate,500,100,RedHeloLandTime,RedHeloSpeed,RedHeloHeight)
               mission:SetMissionAltitude(RedHeloHeight)
               FG:AddMission(mission)
+              RedCurrMission = mission
               local function SpawnMarines()
                 local coord = coordinate:GetRandomCoordinateInRadius(500,100)
-                local marines = SPAWN:NewWithAlias(RedStinger,"Grouse "..math.random(1,10000))
+                local marines = SPAWN:NewWithAlias(RedStinger,"Grouse-"..math.random(1,10000))
                   :InitRandomizeUnits(true,200,100)
                   :SpawnFromCoordinate(coord)
               end
@@ -552,7 +585,7 @@ RedEventManager:HandleEvent(EVENTS.Crash,RedEventManager._EventHandler)
 local AlsisiTimer = TIMER:New(RedStrategyRun)
 
 if debug == true then
-  AlsisiTimer:Start(15,20,4*20)
+  AlsisiTimer:Start(450,20,4*20)
 else
-  AlsisiTimer:Start(45,20*60)
+  AlsisiTimer:Start(450,20*60)
 end

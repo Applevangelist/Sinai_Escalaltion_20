@@ -96,6 +96,7 @@ local redstatics = SET_STATIC:New():FilterCoalitions("red"):FilterOnce()
 local redships = SET_GROUP:New():FilterCoalitions("red"):FilterCategoryShip():FilterPrefixes({"Ph"..CurrentPhase}):FilterOnce()
 
 function SaveGround()
+  BASE:I("***** Save Ground Troops *****")
   local names = redgroups:GetSetNames()
   UTILS.SaveStationaryListOfGroups(names,SavePath,redgroundfilename,true)
   local snames = redstatics:GetSetNames()
@@ -106,17 +107,35 @@ function SaveGround()
   UTILS.SaveSetOfGroups(bluedynamic,SavePath,bluegroundfilename,true)
 end
 
+function RunAround(Set)
+  local set = Set -- Core.Set#SET_GROUP
+  if set then
+    set:ForEachGroupAlive(
+        function(grp)
+          local group = grp -- Wrapper.Group#GROUP
+          group:RelocateGroundRandomInRadius(10,750,false,shortcut,"Vee",true)
+        end
+    )
+  end
+end
+
 function LoadGround()
+  BASE:I("***** Load Ground Troops *****")
   UTILS.LoadStationaryListOfGroups(SavePath,redgroundfilename,true,true,false)
   UTILS.LoadStationaryListOfGroups(SavePath,redshipsfilename,true,true,false)
   UTILS.LoadStationaryListOfStatics(SavePath,redstaticsfilename,true,true,false)
-  UTILS.LoadSetOfGroups(SavePath,redspawnedgroundfilename,true,true,false)
-  UTILS.LoadSetOfGroups(SavePath,bluegroundfilename,true,true,false)
+  local redset = UTILS.LoadSetOfGroups(SavePath,redspawnedgroundfilename,true,true,false)
+  local blueset = UTILS.LoadSetOfGroups(SavePath,bluegroundfilename,true,true,false)
+  local redsettimer = TIMER:New(RunAround,redset)
+  redsettimer:Start(5)
+  local bluesettimer = TIMER:New(RunAround,blueset)
+  bluesettimer:Start(6)
 end
 
 local SaveTimer = TIMER:New(SaveGround)
-SaveTimer:Start(10,300)
+ SaveTimer:Start(120,120)
 
 local LoadTimer = TIMER:New(LoadGround)
-LoadTimer:Start(2)
+LoadTimer:Start(5)
+
 
