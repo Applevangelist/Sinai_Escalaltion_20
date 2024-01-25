@@ -2,16 +2,19 @@
 -- Tanker
 -------------------------------------
 
-local TankwerWing = AIRWING:New("Ben-Gurion","63rd Tanker Squad")
-TankwerWing:SetMarker(false)
-TankwerWing:SetAirbase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
+local TankWacsWing = AIRWING:New("Ben-Gurion","63rd Tanker Squad")
+TankWacsWing:SetMarker(false)
+TankWacsWing:SetAirbase(AIRBASE:FindByName(AIRBASE.Sinai.Ben_Gurion))
 local TankerPoint = ZONE:FindByName("Tanker Point"):GetCoordinate()
-TankwerWing:AddPatrolPointTANKER(TankerPoint,22000,UTILS.KnotsToAltKIAS(300,22000),284,50,0)
-TankwerWing:AddPatrolPointTANKER(TankerPoint,18000,UTILS.KnotsToAltKIAS(300,18000),284,50,1)
-TankwerWing:SetNumberTankerBoom(1)
-TankwerWing:SetNumberTankerProbe(1)
---TankwerWing:SetVerbosity(3)
-TankwerWing:Start()
+local AwacsPoint = ZONE:FindByName("Tanker Point"):GetCoordinate()
+TankWacsWing:AddPatrolPointTANKER(TankerPoint,22000,UTILS.KnotsToAltKIAS(300,22000),284,50,0)
+TankWacsWing:AddPatrolPointTANKER(TankerPoint,18000,UTILS.KnotsToAltKIAS(300,18000),284,50,1)
+TankWacsWing:AddPatrolPointAWACS(AwacsPoint,25000,300,294,40)
+TankWacsWing:SetNumberTankerBoom(1)
+TankWacsWing:SetNumberTankerProbe(1)
+TankWacsWing:SetNumberAWACS(1)
+--TankWacsWing:SetVerbosity(3)
+TankWacsWing:Start()
 
 local TankerProbe =  SQUADRON:New("Texaco 1-1",20,"Texaco")
 TankerProbe:AddMissionCapability({AUFTRAG.Type.TANKER},75)
@@ -21,6 +24,7 @@ TankerProbe:SetMissionRange(200)
 TankerProbe:SetCallsign(CALLSIGN.Tanker.Texaco,1)
 TankerProbe:SetModex(611)
 TankerProbe:SetLivery("Standard USAF")
+TankerProbe:SetTakeoffHot()
 
 local TankerBoom = SQUADRON:New("Shell 1-1",20,"Shell")
 TankerBoom:AddMissionCapability({AUFTRAG.Type.TANKER},75)
@@ -30,15 +34,27 @@ TankerBoom:SetMissionRange(200)
 TankerBoom:SetCallsign(CALLSIGN.Tanker.Shell,1)
 TankerBoom:SetModex(612)
 TankerBoom:SetLivery("RAF RC135")
+TankerProbe:SetTakeoffHot()
 
-TankwerWing:AddSquadron(TankerBoom)
-TankwerWing:NewPayload(UNIT:FindByName("Shell 1-1"),20,{AUFTRAG.Type.TANKER},75)
+local Awacs = SQUADRON:New("Blue AWACS",20,"Blue AWACS")
+Awacs:AddMissionCapability({AUFTRAG.Type.AWACS},75)
+Awacs:SetRadio(263,radio.modulation.AM)
+Awacs:SetMissionRange(200)
+Awacs:SetCallsign(CALLSIGN.AWACS.Overlord,1)
+Awacs:SetTakeoffHot()
+Awacs:SetModex(613)
 
-TankwerWing:AddSquadron(TankerProbe)
-TankwerWing:NewPayload(UNIT:FindByName("Texaco 1-1"),20,{AUFTRAG.Type.TANKER},75)
+TankWacsWing:AddSquadron(TankerBoom)
+TankWacsWing:NewPayload(UNIT:FindByName("Shell 1-1"),20,{AUFTRAG.Type.TANKER},75)
 
-function TankwerWing:OnAfterFlightOnMission(From,Event,To,FlightGroup,Mission)
+TankWacsWing:AddSquadron(TankerProbe)
+TankWacsWing:NewPayload(UNIT:FindByName("Texaco 1-1"),20,{AUFTRAG.Type.TANKER},75)
+
+TankWacsWing:AddSquadron(Awacs)
+TankWacsWing:NewPayload(UNIT:FindByName("Blue Awacs-1-1"),20,{AUFTRAG.Type.AWACS},75)
+
+function TankWacsWing:OnAfterFlightOnMission(From,Event,To,FlightGroup,Mission)
   if FlightGroup then
-    FlightGroup:GetGroup():CommandSetUnlimitedFuel(true):SetCommandInvisible(true)
+    FlightGroup:GetGroup():CommandSetUnlimitedFuel(true):SetCommandInvisible(true):CommandSetUnlimitedFuel(true,1)
   end
 end
