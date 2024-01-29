@@ -38,9 +38,9 @@ TankerProbe:SetTakeoffHot()
 
 local Awacs = SQUADRON:New("Blue AWACS",20,"Blue AWACS")
 Awacs:AddMissionCapability({AUFTRAG.Type.AWACS},75)
-Awacs:SetRadio(263,radio.modulation.AM)
+Awacs:SetRadio(265,radio.modulation.AM)
 Awacs:SetMissionRange(200)
-Awacs:SetCallsign(CALLSIGN.AWACS.Overlord,1)
+Awacs:SetCallsign(CALLSIGN.AWACS.Darkstar,1)
 Awacs:SetTakeoffHot()
 Awacs:SetModex(613)
 

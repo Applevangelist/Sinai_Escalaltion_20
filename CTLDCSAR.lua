@@ -159,26 +159,60 @@ my_ctld:AddCratesRepair("EWR 117 Power System (1)",{"Blue EWR ECS"},CTLD_CARGO.E
 -- ZONES
 -- 
 
+function FindAirbaseZone(Airbase)
+  local ab = Airbase -- Wrapper.Airbase#AIRBASE
+  local abname = ab:GetName()
+  local name = nil
+  local spots = ab:GetParkingSpotsCoordinates(AIRBASE.TerminalType.HelicopterOnly)
+  if #spots ~= 0 then
+    for _,_spot in pairs(spots) do
+      --MARKER:New(_spot,"HeloSpot"):ReadWrite():ToAll()
+    end
+    name = "CTLD Zone "..abname.." "..math.random(1,20000)
+    local zone = ZONE_RADIUS:New(name,spots[math.random(1,#spots)]:GetVec2(),300,false)
+    zone:DrawZone(2,{0,0,1},1,{0,0,1},0.2,3,true)
+    --zone:SmokeZone(SMOKECOLOR.Blue,6,1)
+  else
+    local zone = ab:GetZone()
+    if zone then
+      local rcoord = zone:GetRandomCoordinate(1000,5,{land.SurfaceType.LAND})
+      name = "CTLD Zone "..abname.." "..math.random(1,20000)
+      local zone = ZONE_RADIUS:New(name,rcoord:GetVec2(),300,false)
+      zone:DrawZone(2,{0,0,1},1,{0,0,1},0.2,3,true)
+      --zone:SmokeZone(SMOKECOLOR.Blue,6,1)
+    end
+  end
+  return name
+end
+
 local zones = SET_AIRBASE:New():FilterOnce()
 zones:ForEach(
   function(airbase)
     local zone = airbase:GetZone()
     if zone and (airbase:IsAirdrome() or airbase:IsHelipad()) then
-      local name = zone:GetName()
+      local name = FindAirbaseZone(airbase)
+      if not name then
+        name = zone:GetName()
+      end
       local coa = airbase:GetCoalition()
       local active = coa == coalition.side.BLUE and true or false
       my_ctld:AddCTLDZone(name,CTLD.CargoZoneType.LOAD,SMOKECOLOR.Blue,active,active)
+      airbase.CTLDZONE = name
     end
   end
 )
 
---- activate zones which switched hands
+--- de-/activate zones which switched hands
 
 function CTLDCheckBases()
   zones:ForEach(
     function(airbase)
       local zone = airbase:GetZone()
       if zone and (airbase:IsAirdrome() or airbase:IsHelipad()) then
+        local name = airbase.CTLDZONE
+        if not name then
+          name = zone:GetName()
+        end
         local name = zone:GetName()
         local coa = airbase:GetCoalition()
         local active = coa == coalition.side.BLUE and true or false

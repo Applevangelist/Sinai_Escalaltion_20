@@ -148,6 +148,7 @@ StatSet:ForEach(
   end
 )
 
+--[[
 -- Special tasks
 if CurrentPhase == 1 then
   local TgtSetOne = SET_ZONE:New():FilterPrefixes("army_fuel_tank"):FilterOnce()
@@ -263,6 +264,7 @@ if CurrentPhase == 1 then
   --end
   
 end
+--]]
 
 function anvil:OnAfterTaskSuccess(From,Event,To,Task)
   local points = 100

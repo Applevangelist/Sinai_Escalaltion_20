@@ -2,8 +2,7 @@ mission =
 {
     ["requiredModules"] = 
     {
-        --["UH-60L"] = "UH-60L",
-        --["VSN_F4"] = "VSN_F4",
+       -- ["UH-60L"] = "UH-60L",
     }, -- end of ["requiredModules"]
     ["date"] = 
     {
@@ -244,9 +243,9 @@ mission =
                         ["borderThickness"] = 3,
                         ["mapY"] = 277522.58064606,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = 164271.55061906,
                         ["colorString"] = "0xff0000ff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Gaza",
                         ["angle"] = 0,
                         ["text"] = "Gaza Strip\
@@ -378,9 +377,9 @@ Heli only !\
                         ["borderThickness"] = 4,
                         ["mapY"] = -16105.476675674,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = 65695.383395031,
                         ["colorString"] = "0x000000ff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Text Box-5",
                         ["angle"] = 0,
                         ["text"] = "Phase 4",
@@ -394,9 +393,9 @@ Heli only !\
                         ["borderThickness"] = 4,
                         ["mapY"] = 103685.22858006,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = -50820.860669206,
                         ["colorString"] = "0x000000ff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Text Box-4",
                         ["angle"] = 0,
                         ["text"] = "Phase 3",
@@ -452,9 +451,9 @@ Heli only !\
                         ["borderThickness"] = 4,
                         ["mapY"] = 234980.21568911,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = 8504.8085467259,
                         ["colorString"] = "0x000000ff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Text Box-3",
                         ["angle"] = 0,
                         ["text"] = "Phase 2",
@@ -520,9 +519,9 @@ Heli only !\
                         ["borderThickness"] = 4,
                         ["mapY"] = 386676.85796137,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = 50642.180290006,
                         ["colorString"] = "0x000000ff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Text Box-2",
                         ["angle"] = 0,
                         ["text"] = "Phase 1\
@@ -596,9 +595,9 @@ Heli only !\
                         ["borderThickness"] = 0,
                         ["mapY"] = 261979.61840437,
                         ["layerName"] = "Common",
+                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["mapX"] = 255482.88467756,
                         ["colorString"] = "0x0000ffff",
-                        ["font"] = "DejaVuLGCSansCondensed.ttf",
                         ["name"] = "Windrichtung",
                         ["angle"] = 322,
                         ["text"] = "Windrichtung",
@@ -4732,9 +4731,9 @@ Heli only !\
     }, -- end of ["triggers"]
     ["map"] = 
     {
-        ["centerY"] = 140000,
-        ["zoom"] = 1171314.7410359,
-        ["centerX"] = 200579.3679217,
+        ["centerY"] = 345896.44657568,
+        ["zoom"] = 30464.560392128,
+        ["centerX"] = 217364.03658227,
     }, -- end of ["map"]
     ["coalitions"] = 
     {
@@ -13685,9 +13684,9 @@ Heli only !\
                                         ["heading"] = 1.7883574795982,
                                         ["callsign"] = 
                                         {
-                                            [1] = 1,
+                                            [1] = 5,
                                             [2] = 1,
-                                            ["name"] = "Overlord11",
+                                            ["name"] = "Darkstar11",
                                             [3] = 1,
                                         }, -- end of ["callsign"]
                                     }, -- end of [1]
@@ -19318,13 +19317,13 @@ Heli only !\
                                             ["InitAirborneTime"] = 0,
                                             ["LCFTLaserCode"] = 688,
                                             ["Sta5LaserCode"] = 688,
-                                            ["NetCrewControlPriority"] = 0,
+                                            ["HumanOrchestra"] = false,
                                             ["needsGCAlign"] = false,
                                             ["SoloFlight"] = false,
                                             ["Sta8LaserCode"] = 688,
-                                            ["Sta2LaserCode"] = 688,
+                                            ["NetCrewControlPriority"] = 0,
                                             ["IFF_M2_CODE"] = "auto",
-                                            ["HumanOrchestra"] = false,
+                                            ["Sta2LaserCode"] = 688,
                                             ["RCFTLaserCode"] = 688,
                                             ["InitAlertStatus"] = false,
                                             ["MountNVG"] = false,
@@ -19832,13 +19831,13 @@ Heli only !\
                                             ["InitAirborneTime"] = 0,
                                             ["LCFTLaserCode"] = 688,
                                             ["Sta5LaserCode"] = 688,
-                                            ["NetCrewControlPriority"] = 0,
+                                            ["HumanOrchestra"] = false,
                                             ["needsGCAlign"] = false,
                                             ["SoloFlight"] = false,
                                             ["Sta8LaserCode"] = 688,
-                                            ["Sta2LaserCode"] = 688,
+                                            ["NetCrewControlPriority"] = 0,
                                             ["IFF_M2_CODE"] = "auto",
-                                            ["HumanOrchestra"] = false,
+                                            ["Sta2LaserCode"] = 688,
                                             ["RCFTLaserCode"] = 688,
                                             ["InitAlertStatus"] = false,
                                             ["MountNVG"] = false,
@@ -20346,13 +20345,13 @@ Heli only !\
                                             ["InitAirborneTime"] = 0,
                                             ["LCFTLaserCode"] = 688,
                                             ["Sta5LaserCode"] = 688,
-                                            ["NetCrewControlPriority"] = 0,
+                                            ["HumanOrchestra"] = false,
                                             ["needsGCAlign"] = false,
                                             ["SoloFlight"] = false,
                                             ["Sta8LaserCode"] = 688,
-                                            ["Sta2LaserCode"] = 688,
+                                            ["NetCrewControlPriority"] = 0,
                                             ["IFF_M2_CODE"] = "auto",
-                                            ["HumanOrchestra"] = false,
+                                            ["Sta2LaserCode"] = 688,
                                             ["RCFTLaserCode"] = 688,
                                             ["InitAlertStatus"] = false,
                                             ["MountNVG"] = false,
@@ -20860,13 +20859,13 @@ Heli only !\
                                             ["InitAirborneTime"] = 0,
                                             ["LCFTLaserCode"] = 688,
                                             ["Sta5LaserCode"] = 688,
-                                            ["NetCrewControlPriority"] = 0,
+                                            ["HumanOrchestra"] = false,
                                             ["needsGCAlign"] = false,
                                             ["SoloFlight"] = false,
                                             ["Sta8LaserCode"] = 688,
-                                            ["Sta2LaserCode"] = 688,
+                                            ["NetCrewControlPriority"] = 0,
                                             ["IFF_M2_CODE"] = "auto",
-                                            ["HumanOrchestra"] = false,
+                                            ["Sta2LaserCode"] = 688,
                                             ["RCFTLaserCode"] = 688,
                                             ["InitAlertStatus"] = false,
                                             ["MountNVG"] = false,
@@ -32058,61 +32057,53 @@ Heli only !\
                                         ["alt"] = 43,
                                         ["hardpoint_racks"] = true,
                                         ["alt_type"] = "BARO",
-                                        ["livery_id"] = "433 tfs 63-7680 by urbi",
+                                        ["livery_id"] = "USAF",
                                         ["skill"] = "Random",
                                         ["parking"] = "97",
                                         ["speed"] = 138.88888888889,
-                                        ["type"] = "VSN_F4C",
+                                        ["type"] = "F-4E",
                                         ["unitId"] = 1964,
                                         ["psi"] = 0,
                                         ["onboard_num"] = "531",
                                         ["parking_id"] = "84",
                                         ["x"] = 197349.859375,
-                                        ["name"] = "CAS Support-1-1",
+                                        ["name"] = "SEAD Support-1-1",
                                         ["payload"] = 
                                         {
                                             ["pylons"] = 
                                             {
+                                                [1] = 
+                                                {
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
+                                                }, -- end of [1]
                                                 [2] = 
                                                 {
-                                                    ["CLSID"] = "VSN_F4EL_PTB",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [2]
                                                 [3] = 
                                                 {
-                                                    ["CLSID"] = "{F4C_LAU118_AGM45A}",
+                                                    ["CLSID"] = "{6D21ECEA-F85B-4E8D-9D51-31DC9B8AA4EF}",
                                                 }, -- end of [3]
                                                 [4] = 
                                                 {
-                                                    ["CLSID"] = "{AIM-7F}",
+                                                    ["CLSID"] = "{8D399DDA-FF81-4F14-904D-099B34FE7918}",
                                                 }, -- end of [4]
-                                                [5] = 
-                                                {
-                                                    ["CLSID"] = "{AIM-7F}",
-                                                }, -- end of [5]
                                                 [6] = 
                                                 {
-                                                    ["CLSID"] = "{BRU41_6X_MK-82}",
+                                                    ["CLSID"] = "{8D399DDA-FF81-4F14-904D-099B34FE7918}",
                                                 }, -- end of [6]
-                                                [7] = 
-                                                {
-                                                    ["CLSID"] = "{AIM-7F}",
-                                                }, -- end of [7]
                                                 [8] = 
                                                 {
-                                                    ["CLSID"] = "{AIM-7F}",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [8]
                                                 [9] = 
                                                 {
-                                                    ["CLSID"] = "{F4C_LAU118_AGM45A}",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [9]
-                                                [10] = 
-                                                {
-                                                    ["CLSID"] = "VSN_F4ER_PTB",
-                                                }, -- end of [10]
                                             }, -- end of ["pylons"]
-                                            ["fuel"] = 6416,
-                                            ["flare"] = 48,
-                                            ["chaff"] = 48,
+                                            ["fuel"] = "4864",
+                                            ["flare"] = 30,
+                                            ["chaff"] = 60,
                                             ["gun"] = 100,
                                         }, -- end of ["payload"]
                                         ["y"] = 342507.34375,
@@ -32129,12 +32120,12 @@ Heli only !\
                                     {
                                         ["alt"] = 43,
                                         ["alt_type"] = "BARO",
-                                        ["livery_id"] = "433 tfs 63-7680 by urbi",
+                                        ["livery_id"] = "USAF",
                                         ["skill"] = "Random",
                                         ["parking"] = "96",
                                         ["speed"] = 138.88888888889,
-                                        ["type"] = "VSN_F4C",
-                                        ["unitId"] = 1966,
+                                        ["type"] = "F-4E",
+                                        ["unitId"] = 1968,
                                         ["psi"] = 0,
                                         ["onboard_num"] = "532",
                                         ["parking_id"] = "83",
@@ -32144,46 +32135,38 @@ Heli only !\
                                         {
                                             ["pylons"] = 
                                             {
+                                                [1] = 
+                                                {
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
+                                                }, -- end of [1]
                                                 [2] = 
                                                 {
-                                                    ["CLSID"] = "VSN_F4EL_PTB",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [2]
                                                 [3] = 
                                                 {
-                                                    ["CLSID"] = "{F4C_LAU118_AGM45A}",
+                                                    ["CLSID"] = "{6D21ECEA-F85B-4E8D-9D51-31DC9B8AA4EF}",
                                                 }, -- end of [3]
                                                 [4] = 
                                                 {
-                                                    ["CLSID"] = "{AIM-7F}",
+                                                    ["CLSID"] = "{8D399DDA-FF81-4F14-904D-099B34FE7918}",
                                                 }, -- end of [4]
-                                                [5] = 
-                                                {
-                                                    ["CLSID"] = "{AIM-7F}",
-                                                }, -- end of [5]
                                                 [6] = 
                                                 {
-                                                    ["CLSID"] = "{BRU41_6X_MK-82}",
+                                                    ["CLSID"] = "{8D399DDA-FF81-4F14-904D-099B34FE7918}",
                                                 }, -- end of [6]
-                                                [7] = 
-                                                {
-                                                    ["CLSID"] = "{AIM-7F}",
-                                                }, -- end of [7]
                                                 [8] = 
                                                 {
-                                                    ["CLSID"] = "{AIM-7F}",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [8]
                                                 [9] = 
                                                 {
-                                                    ["CLSID"] = "{F4C_LAU118_AGM45A}",
+                                                    ["CLSID"] = "{3E6B632D-65EB-44D2-9501-1C2D04515405}",
                                                 }, -- end of [9]
-                                                [10] = 
-                                                {
-                                                    ["CLSID"] = "VSN_F4ER_PTB",
-                                                }, -- end of [10]
                                             }, -- end of ["pylons"]
-                                            ["fuel"] = 6416,
-                                            ["flare"] = 48,
-                                            ["chaff"] = 48,
+                                            ["fuel"] = "4864",
+                                            ["flare"] = 30,
+                                            ["chaff"] = 60,
                                             ["gun"] = 100,
                                         }, -- end of ["payload"]
                                         ["y"] = 342495.375,
@@ -32203,7 +32186,7 @@ Heli only !\
                                 ["communication"] = false,
                                 ["start_time"] = 0,
                                 ["modulation"] = 0,
-                                ["frequency"] = 264,
+                                ["frequency"] = 251,
                             }, -- end of [45]
                         }, -- end of ["group"]
                     }, -- end of ["plane"]
@@ -35190,10 +35173,10 @@ Heli only !\
                                         {
                                             ["LeftEngineResource"] = 90,
                                             ["RightEngineResource"] = 90,
-                                            ["GunnersAISkill"] = 90,
-                                            ["PilotNVG"] = true,
                                             ["HumanOrchestra"] = false,
+                                            ["PilotNVG"] = true,
                                             ["NetCrewControlPriority"] = 0,
+                                            ["GunnersAISkill"] = 90,
                                             ["HideAngleBoxes"] = false,
                                             ["OverrideIFF"] = 0,
                                             ["SimplifiedAI"] = false,
@@ -35382,10 +35365,10 @@ Heli only !\
                                         {
                                             ["LeftEngineResource"] = 90,
                                             ["RightEngineResource"] = 90,
-                                            ["GunnersAISkill"] = 90,
-                                            ["PilotNVG"] = true,
                                             ["HumanOrchestra"] = false,
+                                            ["PilotNVG"] = true,
                                             ["NetCrewControlPriority"] = 0,
+                                            ["GunnersAISkill"] = 90,
                                             ["HideAngleBoxes"] = false,
                                             ["OverrideIFF"] = 0,
                                             ["OperatorNVG"] = true,
@@ -60735,7 +60718,7 @@ Heli only !\
             ["eventlist"] = "",
         }, -- end of [20]
     }, -- end of ["trigrules"]
-    ["currentKey"] = 957386,
+    ["currentKey"] = 970878,
     ["failures"] = 
     {
         ["pp_damage_EmergMaxTempr"] = 
