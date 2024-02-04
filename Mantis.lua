@@ -1,6 +1,7 @@
 -------------------------------------
 -- MANTIS
 -------------------------------------
+local MantisDebug = false
 
 local RedZoneSet = SET_ZONE:New():FilterPrefixes("Phase . Border"):FilterOnce()
 
@@ -12,7 +13,16 @@ redmantis:AddScootZones(ScootZones,4,true)
 redmantis:__Start(1)
 
 local bluemantis = MANTIS:New("Blue Mantis","Blue SAM","Blue EWR",hq,"blue",dynamic,"Blue AWACS",true)
-bluemantis:AddZones({ZONE:New("Blue Border")})
-bluemantis:SetMaxActiveSAMs(2,2,2,6)
-bluemantis:SetSAMRange(100)
+local conflictzones = {}
+for i=1,CurrentPhase do
+  table.insert(conflictzones,PhaseBorderZones[i])
+end
+bluemantis:AddZones({ZONE:New("Blue Border")},nil,conflictzones)
+bluemantis:SetMaxActiveSAMs(2,2,1,6)
+--bluemantis:SetSAMRange(100)
+--bluemantis:Debug(MantisDebug)
 bluemantis:__Start(2)
+
+if MantisDebug then
+  local test = SPAWN:New("Aerial-1"):Spawn()
+end
