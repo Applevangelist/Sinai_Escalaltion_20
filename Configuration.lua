@@ -139,3 +139,30 @@ local LoadTimer = TIMER:New(LoadGround)
 LoadTimer:Start(5)
 
 
+------------------------------------------------------
+-- Blocker
+------------------------------------------------------
+--BASE:TraceOn()
+--BASE:TraceClass("NET")
+local blocker = NET:New()
+
+function blocker:OnAfterPlayerJoined(From,Event,To,Client,Name)
+ -- BASE:I({Name,Client})
+  local client = CLIENT:FindByPlayerName(Name)
+  if client then
+    local location = client:GetCoordinate()
+    local ab = location:GetClosestAirbase()
+    local coa = ab:GetCoalition()
+    local abname = ab:GetName()
+    local grp = Client:GetGroup()
+    if coa ~= coalition.side.BLUE then
+      -- kick player
+      blocker:BlockPlayer(client,Name,60, abname.." has not yet been conquered by blue!")
+      MESSAGE:New(abname.." has not yet been conquered by blue!",15,"ALERT"):ToClient(client)
+      if not blocker:ForceSlot(client,0,SlotID) then -- works on server only IIRC
+        if grp and grp:IsAlive() then grp:Destroy() end
+      end
+    end
+  end
+end
+

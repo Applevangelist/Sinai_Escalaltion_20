@@ -267,7 +267,7 @@ end
 --]]
 
 function anvil:OnAfterTaskSuccess(From,Event,To,Task)
-  local points = 100
+  local points = 50
   local task = Task.PlayerTaskNr or 1
   local ttype = Task.Type or "CAS"
   local text = string.format("Well done pilots! You have completed %s task %03d! Adding %d resource points.",ttype, task, points)
