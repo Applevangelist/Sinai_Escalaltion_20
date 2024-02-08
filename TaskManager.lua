@@ -55,7 +55,7 @@ zonetask:AddConditionSuccess(
   end,
   zoneset
   )
-anvil:AddPlayerTaskToQueue(zonetask)
+anvil:AddPlayerTaskToQueue(zonetask,true)
 
 function zonetask:OnAfterSuccess(From,Event,To)
   if CurrentPhase and CurrentPhase < 4 then
@@ -85,7 +85,7 @@ for _,_name in pairs(PhaseAirbases[CurrentPhase]) do
         end
       end, AB
     )
-    anvil:AddPlayerTaskToQueue(task)
+    anvil:AddPlayerTaskToQueue(task,true)
   end
 end
 
@@ -112,7 +112,7 @@ for _,_name in pairs(PhaseAirbases[CurrentPhase]) do
         end
       end, AB
     )
-    anvil:AddPlayerTaskToQueue(task)
+    anvil:AddPlayerTaskToQueue(task,true)
   end
 end
 
