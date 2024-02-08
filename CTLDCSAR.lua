@@ -12,7 +12,7 @@ local FarpFileName = "Escalation_FARPS.csv"
 local CTLD_Filename = "CTLD_save.csv"
 local CSAR_Filename = "CSAR.csv"
 local HeloPrefixes = { "UH", "SA342", "Mi.8", "Mi.24", "AH.64"}
-
+local HeloPilots = SET_CLIENT:New():FilterActive(true):FilterPrefixes(HeloPrefixes):FilterCoalitions("blue"):FilterStart()
 
 -------------------------------------
 -- CSAR
@@ -420,8 +420,10 @@ function my_ctld:OnBeforeTroopsDeployed(From,Event,To,Group,Unit,Troops)
   BuildMoveZones(Group,Unit,Troops)
   --local playername = Unit:GetPlayerName() or "Pilot"
   local points = 50
-  local text = string.format("Well done %s! You have successfully deployed troops into action! Adding %d resource points.",playername,points)
-  MESSAGE:New(text,15,"CTLD"):ToBlue()
+  if HeloPilots:CountAlive() > 0 then
+    local text = string.format("Well done %s! You have successfully deployed troops into action! Adding %d resource points.",playername,points)
+    MESSAGE:New(text,15,"CTLD"):ToBlue()
+  end
   HowiAddBudget(points)
   return self
 end
@@ -432,8 +434,10 @@ function my_ctld:OnBeforeCratesBuild(From,Event,To,Group,Unit,Vehicle)
   BuildMoveZones(Group,Unit,Vehicle)
   --local playername = Unit:GetPlayerName() or "Pilot"
   local points = 50
-  local text = string.format("Well done %s! You have successfully deployed stock into action! Adding %d resource points.",playername,points)
-  MESSAGE:New(text,15,"CTLD"):ToBlue()
+  if HeloPilots:CountAlive() > 0 then
+    local text = string.format("Well done %s! You have successfully deployed stock into action! Adding %d resource points.",playername,points)
+    MESSAGE:New(text,15,"CTLD"):ToBlue()
+  end
   HowiAddBudget(points)
   return self
 end
@@ -443,7 +447,9 @@ local ArmyGroups = {}
 function my_ctld:OnAfterTroopsDeployed(From,Event,To,Group,Unit,Troops)
   local name = Troops:GetName()
   if string.match(name,"Mortar",1,true) then
-    local m  = MESSAGE:New(string.format("Mortar %s in operation!",name),15,"CTLD"):ToBlue()
+    if HeloPilots:CountAlive() > 0 then
+      local m  = MESSAGE:New(string.format("Mortar %s in operation!",name),15,"CTLD"):ToBlue()
+    end
     local name = Troops:GetName()
     ArmyGroups[name] = ARMYGROUP:New(Troops)
   end
