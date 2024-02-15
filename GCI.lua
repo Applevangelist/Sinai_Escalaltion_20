@@ -23,4 +23,5 @@ evileye.PlayerCapAssignment = false
 evileye.PikesSpecialSwitch = true
 evileye.IncludeHelicopters = false
 evileye:AddGroupToDetection(GROUP:FindByName("Blue EWR Hebron"))
+evileye.ControlZoneRadius = 200
 evileye:__Start(2)
