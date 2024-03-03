@@ -55,6 +55,6 @@ TankWacsWing:NewPayload(UNIT:FindByName("Blue Awacs-1-1"),20,{AUFTRAG.Type.AWACS
 
 function TankWacsWing:OnAfterFlightOnMission(From,Event,To,FlightGroup,Mission)
   if FlightGroup then
-    FlightGroup:GetGroup():CommandSetUnlimitedFuel(true):SetCommandInvisible(true):CommandSetUnlimitedFuel(true,1)
+    FlightGroup:GetGroup():CommandSetUnlimitedFuel(true):SetCommandInvisible(true)
   end
 end

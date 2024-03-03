@@ -44,7 +44,7 @@ redcap:SetDefaultEngageRange(50) --  50NM
 redcap:SetDefaultCAPGrouping(1)
 redcap:SetMaxAliveMissions(6)
 redcap:SetDefaultMissionRange(200)
-redcap:SetCapStartTimeVariation(300,900) -- 5 to 15 min
+redcap:SetCapStartTimeVariation(600,1500) -- 10 to 25 min
 
 local Skills = {
   [1] = AI.Skill.HIGH,

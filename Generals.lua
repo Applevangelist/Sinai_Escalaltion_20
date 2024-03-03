@@ -43,7 +43,7 @@ end
 
 local PlayerSet = SET_CLIENT:New():FilterActive(true):FilterStart()
 
-local Howi = STRATEGO:New("Eisenhower",coalition.side.BLUE,100)
+local Howi = STRATEGO:New("Eisenhower",coalition.side.BLUE,125)
 --Howi:SetDebug(true,true,true)
 Howi:SetUsingBudget(true,500)
 Howi:SetDebug(false,false,false)
@@ -80,19 +80,19 @@ function BlueStrategyRun()
   
   Howi:UpdateNodeCoalitions()
 
-  local rand = math.floor((math.random(1,10000)/100)+.5)
+  --local rand = math.floor((math.random(1,10000)/100)+.5)
   
-  BASE:I("**** Random number = "..rand)
+  --BASE:I("**** Random number = "..rand)
   
-  if not BlueKeyTarget then
+  if BlueKeyTarget == nil then
     local Ctarget = Howi:FindAffordableConsolidationTarget() -- Functional.Stratego#STRATEGO.Target
     local Starget = Howi:FindAffordableStrategicTarget() -- Functional.Stratego#STRATEGO.Target
 
-    if rand <= 50 and Ctarget then
+    if type(Ctarget) == "table" and Ctarget.name then
       -- Tactial
       BlueKeyTarget = Ctarget
       MESSAGE:New("Next Consolidation Target: "..Ctarget.name,15,"Eisenhower"):ToAll():ToLog()
-    elseif Starget then
+    elseif type(Starget)=="table"and Starget.name then
       -- Strategic
       BlueKeyTarget = Starget
       MESSAGE:New("Next Strategic Target: "..Starget.name,15,"Eisenhower"):ToAll():ToLog()
@@ -100,7 +100,9 @@ function BlueStrategyRun()
     
   end
   
-  if PlayerSet:CountAlive() == 0 and debug == false then return end
+  if debug == false then
+    if PlayerSet:CountAlive() == 0 then return end
+  end
   
   if BlueKeyTarget then
     --UTILS.PrintTableToLog(BlueKeyTarget)
@@ -277,7 +279,7 @@ function HowiAddBudget(Points)
 end
 
 function ShowObjective()
-  local report = REPORT:New("Syria Escalation")
+  local report = REPORT:New("Syria Insurgency")
   report:Add("==================================")
   if BlueKeyTarget then
     report:Add("The current key objective is to conquer and fortify "..BlueKeyTarget.name..".")
@@ -368,13 +370,13 @@ function RedStrategyRun()
   
   Alsisi:UpdateNodeCoalitions()
   
-  local rand = math.floor((math.random(1,10000)/100)+.5)
+  --local rand = math.floor((math.random(1,10000)/100)+.5)
   
   if not RedKeyTarget then
     local Ctarget = Alsisi:FindAffordableConsolidationTarget() -- Functional.Stratego#STRATEGO.Target
     local Starget = Alsisi:FindAffordableStrategicTarget() -- Functional.Stratego#STRATEGO.Target
 
-    if rand <= 50 and Ctarget then
+    if Ctarget then
       -- Tactial
       RedKeyTarget = Ctarget
       MESSAGE:New("Next Consolidation Target: "..Ctarget.name,15,"Al-Sisi"):ToAllIf(debug):ToLog()
