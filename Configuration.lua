@@ -41,7 +41,7 @@ UseAirboss = false
 
 --- TODO Load/Save Phase State
 
-CurrentPhase = 1
+CurrentPhase = 2
 
 ---
 AIRBASE:FindByName(AIRBASE.Sinai.Ramon_Airbase):SetParkingSpotWhitelist({31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,37,48,49,50,51,52,61,62,63,64,65,66,99,100,101,102,103,104,105,106,107})
@@ -52,30 +52,68 @@ AIRBASE:FindByName(AIRBASE.Sinai.Ovda):SetParkingSpotWhitelist({4,5,6,7,8,9,30,3
 -------------------------------------
 
 for Phase = 1,4 do
+
+    -- Filter out SAM groups
+   local function FilterOut(grp)
+    if grp and grp:IsAlive() then
+      local name = grp:GetName()
+      if string.find(name,"SAM",1,true) or string.find(name,"EW",1,true) then
+        return false
+      else
+        return true
+      end
+    end
+    return false
+   end
+  
+  --[[
   if Phase ~= CurrentPhase then
   
-    -- Filter out SAM groups
-     local function FilterOut(grp)
-      if grp and grp:IsAlive() then
-        local name = grp:GetName()
-        if string.find(name,"SAM",1,true) or string.find(name,"EW",1,true) then
-          return false
-        else
-          return true
-        end
-      end
-      return false
-     end
+
   
      local set = SET_GROUP:New():FilterCategoryGround():FilterCoalitions("red"):FilterPrefixes({"Ph"..Phase}):FilterFunction(FilterOut):FilterOnce()
      set:ForEach(
       function(grp)
         if grp and grp:IsAlive() then
-          grp:Destroy(false)
+          grp:Destroy()
         end
       end
      )
+     
   end
+  --]]
+  
+  if Phase ~= CurrentPhase then
+     local set
+     if Phase < CurrentPhase then
+      set = SET_GROUP:New():FilterCategoryGround():FilterCoalitions("red"):FilterPrefixes({"Ph"..Phase}):FilterOnce()
+     else
+      set = SET_GROUP:New():FilterCategoryGround():FilterCoalitions("red"):FilterPrefixes({"Ph"..Phase}):FilterFunction(FilterOut):FilterOnce()
+     end    
+     set:ForEach(
+      function(grp)
+        if grp and grp:IsAlive() then
+          grp:Destroy()
+        end
+      end
+     )
+     local set = SET_STATIC:New():FilterCoalitions("red"):FilterPrefixes({"Ph"..Phase}):FilterFunction(StaticFilter):FilterOnce()
+     set:ForEach(
+      function(grp)
+        if grp and grp:IsAlive() and string.find(grp:GetName(),"FARP",1,true)==nil then
+          grp:Destroy()
+        end
+      end
+     )
+     local set = SET_GROUP:New():FilterCategoryShip():FilterCoalitions("red"):FilterPrefixes({"Ph"..Phase}):FilterOnce()
+     set:ForEach(
+      function(grp)
+        if grp and grp:IsAlive() then
+          grp:Destroy()
+        end
+      end
+     )
+   end
 end
 
 -------------------------------------
@@ -166,3 +204,16 @@ function blocker:OnAfterPlayerJoined(From,Event,To,Client,Name)
   end
 end
 
+
+------------------------------------------------------
+-- TIRESIAS
+------------------------------------------------------
+--[[
+function ActivateTiresias()
+  local tiresias = TIRESIAS:New()
+  tiresias:SetActivationRanges(15,40)
+end
+
+local TTimer = TIMER:New(ActivateTiresias)
+TTimer:Start(30)
+--]]

@@ -3,11 +3,15 @@
 -------------------------------------
 local MantisDebug = false
 
-local RedZoneSet = SET_ZONE:New():FilterPrefixes("Phase . Border"):FilterOnce()
+--local RedZoneSet = SET_ZONE:New():FilterPrefixes("Phase . Border"):FilterOnce()
 
+local RedMantisBorders = {}
+for i=CurrentPhase,4 do
+  RedMantisBorders[i] = ZONE:New(PhaseBorderNames[i])
+end
 local ScootZones = SET_ZONE:New():FilterPrefixes("Scoot"):FilterOnce()
 local redmantis = MANTIS:New("Red Mantis","RED SAM","RED EW",hq,"red",dynamic,"RED AWACS",true)
-redmantis:AddZones(PhaseBorderZones,{ZONE:New("Blue Border")},PhaseBorderZones)
+redmantis:AddZones(RedMantisBorders,{ZONE:New("Blue Border")},RedMantisBorders)
 redmantis:AddScootZones(ScootZones,4,true)
 --redmantis:Debug(true)
 redmantis:__Start(1)
